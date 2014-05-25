@@ -40,6 +40,9 @@ sub from_fusion_stats {
     @possible = grep { $_->fusion_type eq $options->{fusion_type} } @possible
         if $options->{fusion_type};
 
+    my %bosses = map { $_ => 1 } @{ $options->{bosses} || [] };
+    @possible = grep { !$_->boss || $bosses{$_->name} } @possible;
+
     my $found;
     for my $demon (@possible) {
         $found = $demon;

@@ -6,6 +6,8 @@ use lib 't/lib';
 
 use Test::Games::SMTNocturne::Demons;
 
+set_fusion_options({ bosses => ['Forneus', 'Troll'] });
+
 fusion_is('Uzume', 'Uzume',      undef);
 fusion_is('Uzume', 'Jack Frost', 'Forneus');
 fusion_is('Uzume', 'Mou-Ryo',    undef);

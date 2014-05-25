@@ -6,7 +6,7 @@ use Games::SMTNocturne::Demons::Demon;
 use Games::SMTNocturne::Demons::FusionChart;
 
 sub fuse {
-    my ($demon1, $demon2) = @_;
+    my ($demon1, $demon2, $options) = @_;
 
     $demon1 = Games::SMTNocturne::Demons::Demon->from_name($demon1)
         unless ref($demon1);
@@ -14,12 +14,13 @@ sub fuse {
         unless ref($demon2);
 
     if ($demon1->type eq 'Element' && $demon2->type eq 'Element') {
-        return _fuse_mitama($demon1, $demon2);
+        return _fuse_mitama($demon1, $demon2, $options);
     }
     elsif ($demon1->type eq 'Element' || $demon2->type eq 'Element') {
         return _element_fusion(
-            $demon1->type eq 'Element'
-                ? ($demon1, $demon2) : ($demon2, $demon1)
+            ($demon1->type eq 'Element'
+                ? ($demon1, $demon2) : ($demon2, $demon1)),
+            $options
         );
     }
     elsif ($demon1->type eq 'Mitama' && $demon2->type eq 'Mitama') {
@@ -27,15 +28,16 @@ sub fuse {
     }
     elsif ($demon1->type eq 'Mitama' || $demon2->type eq 'Mitama') {
         return _mitama_fusion(
-            $demon1->type eq 'Mitama'
-                ? ($demon1, $demon2) : ($demon2, $demon1)
+            ($demon1->type eq 'Mitama'
+                ? ($demon1, $demon2) : ($demon2, $demon1)),
+            $options
         );
     }
     elsif ($demon1->type eq $demon2->type) {
-        return _fuse_element($demon1, $demon2);
+        return _fuse_element($demon1, $demon2, $options);
     }
     else {
-        return _normal_fusion($demon1, $demon2);
+        return _normal_fusion($demon1, $demon2, $options);
     }
 }
 
@@ -85,7 +87,7 @@ sub _fuse_element {
 }
 
 sub _normal_fusion {
-    my ($demon1, $demon2) = @_;
+    my ($demon1, $demon2, $options) = @_;
 
     my $new_type = Games::SMTNocturne::Demons::FusionChart::fuse(
         $demon1->type, $demon2->type
@@ -98,6 +100,7 @@ sub _normal_fusion {
         type        => $new_type,
         level       => $new_level,
         fusion_type => 'normal',
+        %{ $options || {} },
     });
 }
 
