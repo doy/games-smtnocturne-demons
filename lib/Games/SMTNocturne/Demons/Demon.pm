@@ -310,7 +310,7 @@ __DATA__
       "level" : "36",
       "type" : "Holy"
    },
-   "Flameis" : {
+   "Flaemis" : {
       "fusion_type" : "normal",
       "level" : "20",
       "type" : "Element"
