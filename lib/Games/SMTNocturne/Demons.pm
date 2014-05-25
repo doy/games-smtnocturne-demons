@@ -23,4 +23,25 @@ sub fuse {
     );
 }
 
+sub fusions_for {
+    my ($demon) = @_;
+
+    $demon = Games::SMTNocturne::Demons::Demon->from_name($demon)
+        unless ref($demon);
+
+    my @fusions;
+    my %seen;
+    for my $types (Games::SMTNocturne::Demons::FusionChart::unfuse($demon->type)) {
+        my ($type1, $type2) = @$types;
+        for my $demon1 (Games::SMTNocturne::Demons::Demon->from_type($type1)) {
+            for my $demon2 (Games::SMTNocturne::Demons::Demon->from_type($type2)) {
+                push @fusions, [ $demon1, $demon2 ]
+                    if fuse($demon1, $demon2) eq $demon;
+            }
+        }
+    }
+
+    return @fusions;
+}
+
 1;
