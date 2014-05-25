@@ -69,9 +69,20 @@ sub _fuse_mitama {
 }
 
 sub _element_fusion {
-    my ($element, $demon) = @_;
+    my ($element, $demon, $options) = @_;
 
-    die "element fusion nyi";
+    my $direction = Games::SMTNocturne::Demons::FusionChart::element_fusion(
+        $demon->type, $element->name
+    );
+    return unless $direction;
+
+    return Games::SMTNocturne::Demons::Demon->from_fusion_stats({
+        type        => $demon->type,
+        level       => $demon->level,
+        fusion_type => 'normal',
+        offset      => $direction,
+        %{ $options || {} },
+    });
 }
 
 sub _mitama_fusion {
@@ -83,7 +94,11 @@ sub _mitama_fusion {
 sub _fuse_element {
     my ($demon1, $demon2) = @_;
 
-    die "element fusion nyi";
+    my $element = Games::SMTNocturne::Demons::FusionChart::fuse_element(
+        $demon1->type
+    );
+    return unless $element;
+    return Games::SMTNocturne::Demons::Demon->from_name($element);
 }
 
 sub _normal_fusion {

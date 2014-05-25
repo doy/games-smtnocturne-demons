@@ -43,13 +43,20 @@ sub from_fusion_stats {
     my %bosses = map { $_ => 1 } @{ $options->{bosses} || [] };
     @possible = grep { !$_->boss || $bosses{$_->name} } @possible;
 
-    my $found;
-    for my $demon (@possible) {
-        $found = $demon;
+    my $found_idx;
+    for my $i (0..$#possible) {
+        $found_idx = $i;
+        my $demon = $possible[$i];
         last if $demon->level >= $options->{level};
     }
 
-    return $found;
+    if ($options->{offset}) {
+        $found_idx += $options->{offset} eq 'up' ? 1 : -1;
+        $found_idx = 0 if $found_idx < 0;
+        $found_idx = $#possible if $found_idx > $#possible;
+    }
+
+    return $possible[$found_idx];
 }
 
 sub from_type {

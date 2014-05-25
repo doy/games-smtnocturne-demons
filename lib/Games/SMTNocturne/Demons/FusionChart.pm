@@ -31,6 +31,18 @@ sub unfuse {
     return @combinations;
 }
 
+sub fuse_element {
+    my ($type) = @_;
+
+    return $TYPES{$type}{self_fusion};
+}
+
+sub element_fusion {
+    my ($type, $element) = @_;
+
+    return $TYPES{$type}{element_fusions}{$element};
+}
+
 1;
 
 __DATA__
