@@ -36,6 +36,12 @@ sub unfuse {
 __DATA__
 {
    "Avatar" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : null,
          "Avian" : "Holy",
@@ -69,9 +75,16 @@ __DATA__
          "Wargod" : "Deity",
          "Wilder" : null,
          "Yoma" : "Divine"
-      }
+      },
+      "self_fusion" : null
    },
    "Avian" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Holy",
          "Avian" : null,
@@ -105,9 +118,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : null,
          "Yoma" : "Night"
-      }
+      },
+      "self_fusion" : null
    },
    "Beast" : {
+      "element_fusions" : {
+         "Aeros" : "up",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : "Snake",
          "Avian" : "Femme",
@@ -141,9 +161,16 @@ __DATA__
          "Wargod" : "Holy",
          "Wilder" : "Jirae",
          "Yoma" : "Fallen"
-      }
+      },
+      "self_fusion" : "Aeros"
    },
    "Brute" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "up",
+         "Erthys" : "up",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : "Kishin",
          "Avian" : "Kishin",
@@ -177,9 +204,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Fairy",
          "Yoma" : "Femme"
-      }
+      },
+      "self_fusion" : "Erthys"
    },
    "Deity" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Megami",
          "Avian" : "Megami",
@@ -213,9 +247,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : null,
          "Yoma" : "Megami"
-      }
+      },
+      "self_fusion" : null
    },
    "Divine" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "up",
+         "Erthys" : "down",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : "Megami",
          "Avian" : "Snake",
@@ -249,9 +290,16 @@ __DATA__
          "Wargod" : "Holy",
          "Wilder" : "Fallen",
          "Yoma" : "Snake"
-      }
+      },
+      "self_fusion" : "Aeros"
    },
    "Dragon" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Fury",
          "Avian" : "Fury",
@@ -285,9 +333,16 @@ __DATA__
          "Wargod" : "Lady",
          "Wilder" : null,
          "Yoma" : "Avatar"
-      }
+      },
+      "self_fusion" : null
    },
    "Element" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : null,
          "Avian" : null,
@@ -321,9 +376,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Wilder",
          "Yoma" : "Yoma"
-      }
+      },
+      "self_fusion" : null
    },
    "Entity" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Fury",
          "Avian" : "Deity",
@@ -357,9 +419,16 @@ __DATA__
          "Wargod" : "Fury",
          "Wilder" : "Brute",
          "Yoma" : "Megami"
-      }
+      },
+      "self_fusion" : null
    },
    "Fairy" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "up",
+         "Erthys" : "up",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Divine",
          "Avian" : "Night",
@@ -393,9 +462,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Yoma",
          "Yoma" : "Holy"
-      }
+      },
+      "self_fusion" : "Aeros"
    },
    "Fallen" : {
+      "element_fusions" : {
+         "Aeros" : "up",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : "Divine",
          "Avian" : "Snake",
@@ -429,9 +505,16 @@ __DATA__
          "Wargod" : "Lady",
          "Wilder" : "Night",
          "Yoma" : "Jirae"
-      }
+      },
+      "self_fusion" : "Erthys"
    },
    "Femme" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "up",
+         "Erthys" : "up",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : "Kishin",
          "Avian" : "Brute",
@@ -465,9 +548,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Fallen",
          "Yoma" : "Brute"
-      }
+      },
+      "self_fusion" : "Aquans"
    },
    "Fiend" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : null,
          "Avian" : null,
@@ -501,9 +591,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Night",
          "Yoma" : "Night"
-      }
+      },
+      "self_fusion" : null
    },
    "Foul" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "up",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : null,
          "Avian" : null,
@@ -537,9 +634,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Beast",
          "Yoma" : "Snake"
-      }
+      },
+      "self_fusion" : null
    },
    "Fury" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Holy",
          "Avian" : "Kishin",
@@ -573,9 +677,16 @@ __DATA__
          "Wargod" : "Deity",
          "Wilder" : null,
          "Yoma" : "Holy"
-      }
+      },
+      "self_fusion" : null
    },
    "Genma" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Kishin",
          "Avian" : "Megami",
@@ -609,9 +720,16 @@ __DATA__
          "Wargod" : "Holy",
          "Wilder" : "Yoma",
          "Yoma" : null
-      }
+      },
+      "self_fusion" : null
    },
    "Haunt" : {
+      "element_fusions" : {
+         "Aeros" : "up",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : null,
          "Avian" : null,
@@ -645,9 +763,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Jirae",
          "Yoma" : "Jirae"
-      }
+      },
+      "self_fusion" : null
    },
    "Holy" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : "Megami",
          "Avian" : "Lady",
@@ -681,9 +806,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : null,
          "Yoma" : "Divine"
-      }
+      },
+      "self_fusion" : "Flaemis"
    },
    "Jirae" : {
+      "element_fusions" : {
+         "Aeros" : "up",
+         "Aquans" : "down",
+         "Erthys" : "up",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Kishin",
          "Avian" : "Kishin",
@@ -717,9 +849,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : "Brute",
          "Yoma" : "Beast"
-      }
+      },
+      "self_fusion" : "Erthys"
    },
    "Kishin" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "up",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Holy",
          "Avian" : "Lady",
@@ -753,9 +892,16 @@ __DATA__
          "Wargod" : "Fury",
          "Wilder" : null,
          "Yoma" : "Femme"
-      }
+      },
+      "self_fusion" : null
    },
    "Lady" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "up",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Fury",
          "Avian" : null,
@@ -789,9 +935,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : "Haunt",
          "Yoma" : "Night"
-      }
+      },
+      "self_fusion" : null
    },
    "Megami" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Deity",
          "Avian" : "Deity",
@@ -825,9 +978,16 @@ __DATA__
          "Wargod" : "Deity",
          "Wilder" : "Vile",
          "Yoma" : "Kishin"
-      }
+      },
+      "self_fusion" : null
    },
    "Mitama" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Avatar",
          "Avian" : "Avian",
@@ -861,9 +1021,16 @@ __DATA__
          "Wargod" : "Wargod",
          "Wilder" : "Wilder",
          "Yoma" : "Yoma"
-      }
+      },
+      "self_fusion" : null
    },
    "Night" : {
+      "element_fusions" : {
+         "Aeros" : "up",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Holy",
          "Avian" : "Femme",
@@ -897,9 +1064,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Beast",
          "Yoma" : "Divine"
-      }
+      },
+      "self_fusion" : "Erthys"
    },
    "Raptor" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Wilder",
          "Avian" : "Megami",
@@ -933,9 +1107,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Vile",
          "Yoma" : "Haunt"
-      }
+      },
+      "self_fusion" : null
    },
    "Seraph" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Deity",
          "Avian" : "Megami",
@@ -969,9 +1150,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : null,
          "Yoma" : "Megami"
-      }
+      },
+      "self_fusion" : "Flaemis"
    },
    "Snake" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "up",
+         "Erthys" : "down",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : "Lady",
          "Avian" : "Kishin",
@@ -1005,9 +1193,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : "Night",
          "Yoma" : "Night"
-      }
+      },
+      "self_fusion" : "Aquans"
    },
    "Tyrant" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : null,
          "Avian" : null,
@@ -1041,9 +1236,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Night",
          "Yoma" : "Night"
-      }
+      },
+      "self_fusion" : null
    },
    "Vile" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "down",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Deity",
          "Avian" : null,
@@ -1077,9 +1279,16 @@ __DATA__
          "Wargod" : "Kishin",
          "Wilder" : "Foul",
          "Yoma" : "Jirae"
-      }
+      },
+      "self_fusion" : null
    },
    "Wargod" : {
+      "element_fusions" : {
+         "Aeros" : null,
+         "Aquans" : null,
+         "Erthys" : null,
+         "Flaemis" : null
+      },
       "fusions" : {
          "Avatar" : "Deity",
          "Avian" : "Kishin",
@@ -1113,9 +1322,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : null,
          "Yoma" : null
-      }
+      },
+      "self_fusion" : null
    },
    "Wilder" : {
+      "element_fusions" : {
+         "Aeros" : "down",
+         "Aquans" : "up",
+         "Erthys" : "down",
+         "Flaemis" : "up"
+      },
       "fusions" : {
          "Avatar" : null,
          "Avian" : null,
@@ -1149,9 +1365,16 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Element",
          "Yoma" : "Beast"
-      }
+      },
+      "self_fusion" : "Aeros"
    },
    "Yoma" : {
+      "element_fusions" : {
+         "Aeros" : "up",
+         "Aquans" : "up",
+         "Erthys" : "down",
+         "Flaemis" : "down"
+      },
       "fusions" : {
          "Avatar" : "Divine",
          "Avian" : "Night",
@@ -1185,6 +1408,7 @@ __DATA__
          "Wargod" : null,
          "Wilder" : "Beast",
          "Yoma" : "Element"
-      }
+      },
+      "self_fusion" : "Aquans"
    }
 }
