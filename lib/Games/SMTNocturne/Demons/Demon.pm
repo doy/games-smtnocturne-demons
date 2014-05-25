@@ -51,7 +51,7 @@ sub from_type {
     return @{ $DEMONS_BY_TYPE{$type} };
 }
 
-# sub boss        { $_[0]->{boss} }
+sub boss        { $_[0]->{boss} }
 sub fusion_type { $_[0]->{fusion_type} }
 sub level       { $_[0]->{level} }
 sub name        { $_[0]->{name} }
@@ -72,6 +72,7 @@ __DATA__
       "type" : "Tyrant"
    },
    "Aciel" : {
+      "boss": true,
       "fusion_type" : "evolve",
       "level" : "77",
       "type" : "Tyrant"
@@ -127,6 +128,7 @@ __DATA__
       "type" : "Deity"
    },
    "Atropos" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "67",
       "type" : "Femme"
@@ -152,11 +154,13 @@ __DATA__
       "type" : "Avatar"
    },
    "Beelzebub" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "84",
       "type" : "Tyrant"
    },
    "Beelzebub (Fly)" : {
+      "boss": true,
       "fusion_type" : "evolve",
       "level" : "95",
       "type" : "Tyrant"
@@ -167,6 +171,7 @@ __DATA__
       "type" : "Fury"
    },
    "Berith" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "37",
       "type" : "Fallen"
@@ -182,6 +187,7 @@ __DATA__
       "type" : "Kishin"
    },
    "Black Frost" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "66",
       "type" : "Night"
@@ -192,6 +198,7 @@ __DATA__
       "type" : "Foul"
    },
    "Black Rider" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "61",
       "type" : "Fiend"
@@ -227,6 +234,7 @@ __DATA__
       "type" : "Haunt"
    },
    "Clotho" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "58",
       "type" : "Femme"
@@ -237,6 +245,7 @@ __DATA__
       "type" : "Genma"
    },
    "Daisoujou" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "37",
       "type" : "Fiend"
@@ -277,6 +286,7 @@ __DATA__
       "type" : "Yoma"
    },
    "Eligor" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "29",
       "type" : "Fallen"
@@ -297,6 +307,7 @@ __DATA__
       "type" : "Element"
    },
    "Flauros" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "68",
       "type" : "Fallen"
@@ -307,21 +318,25 @@ __DATA__
       "type" : "Night"
    },
    "Forneus" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "20",
       "type" : "Fallen"
    },
    "Futomimi" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "63",
       "type" : "Kishin"
    },
    "Fuu-Ki" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "66",
       "type" : "Brute"
    },
    "Gabriel" : {
+      "boss": true,
       "fusion_type" : "special",
       "level" : "87",
       "type" : "Seraph"
@@ -337,6 +352,7 @@ __DATA__
       "type" : "Avian"
    },
    "Girimehkala" : {
+      "boss": true,
       "fusion_type" : "special",
       "level" : "58",
       "type" : "Vile"
@@ -362,6 +378,7 @@ __DATA__
       "type" : "Genma"
    },
    "Hell Biker" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "42",
       "type" : "Fiend"
@@ -422,6 +439,7 @@ __DATA__
       "type" : "Kishin"
    },
    "Kaiwan" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "47",
       "type" : "Night"
@@ -447,6 +465,7 @@ __DATA__
       "type" : "Lady"
    },
    "Kin-Ki" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "59",
       "type" : "Brute"
@@ -482,6 +501,7 @@ __DATA__
       "type" : "Mitama"
    },
    "Lachesis" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "63",
       "type" : "Femme"
@@ -532,11 +552,13 @@ __DATA__
       "type" : "Avatar"
    },
    "Matador" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "30",
       "type" : "Fiend"
    },
    "Metatron" : {
+      "boss": true,
       "fusion_type" : "special",
       "level" : "95",
       "type" : "Seraph"
@@ -557,11 +579,13 @@ __DATA__
       "type" : "Kishin"
    },
    "Mithra" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "78",
       "type" : "Deity"
    },
    "Mizuchi" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "34",
       "type" : "Snake"
@@ -572,6 +596,7 @@ __DATA__
       "type" : "Brute"
    },
    "Mot" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "91",
       "type" : "Tyrant"
@@ -632,6 +657,7 @@ __DATA__
       "type" : "Kishin"
    },
    "Ongyo-Ki" : {
+      "boss": true,
       "fusion_type" : "special",
       "level" : "81",
       "type" : "Brute"
@@ -647,16 +673,19 @@ __DATA__
       "type" : "Yoma"
    },
    "Orthrus" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "34",
       "type" : "Beast"
    },
    "Ose" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "45",
       "type" : "Fallen"
    },
    "Pale Rider" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "63",
       "type" : "Fiend"
@@ -742,16 +771,19 @@ __DATA__
       "type" : "Femme"
    },
    "Raphael" : {
+      "boss": true,
       "fusion_type" : "special",
       "level" : "84",
       "type" : "Seraph"
    },
    "Red Rider" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "55",
       "type" : "Fiend"
    },
    "Sakahagi" : {
+      "boss": true,
       "fusion_type" : "special",
       "level" : "45",
       "type" : "Foul"
@@ -762,6 +794,7 @@ __DATA__
       "type" : "Mitama"
    },
    "Samael" : {
+      "boss": true,
       "fusion_type" : "special",
       "level" : "73",
       "type" : "Vile"
@@ -827,6 +860,7 @@ __DATA__
       "type" : "Fury"
    },
    "Skadi" : {
+      "boss": true,
       "fusion_type" : "evolve",
       "level" : "74",
       "type" : "Lady"
@@ -852,11 +886,13 @@ __DATA__
       "type" : "Jirae"
    },
    "Sui-Ki" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "62",
       "type" : "Brute"
    },
    "Surt" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "74",
       "type" : "Tyrant"
@@ -872,11 +908,13 @@ __DATA__
       "type" : "Femme"
    },
    "The Harlot" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "69",
       "type" : "Fiend"
    },
    "Thor" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "76",
       "type" : "Kishin"
@@ -897,11 +935,13 @@ __DATA__
       "type" : "Fairy"
    },
    "Troll" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "38",
       "type" : "Fairy"
    },
    "Trumpeter" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "77",
       "type" : "Fiend"
@@ -912,6 +952,7 @@ __DATA__
       "type" : "Holy"
    },
    "Uriel" : {
+      "boss": true,
       "fusion_type" : "evolve",
       "level" : "73",
       "type" : "Seraph"
@@ -937,6 +978,7 @@ __DATA__
       "type" : "Deity"
    },
    "White Rider" : {
+      "boss": true,
       "fusion_type" : "deathstone",
       "level" : "52",
       "type" : "Fiend"
@@ -957,6 +999,7 @@ __DATA__
       "type" : "Haunt"
    },
    "Yaksini" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "43",
       "type" : "Femme"
