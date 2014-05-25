@@ -7,7 +7,7 @@ use Games::SMTNocturne::Demons::FusionChart;
 
 sub fuse {
     my ($demon1, $demon2, $options) = @_;
-    $options = { %$options };
+    $options = { %{ $options || {} } };
 
     $demon1 = Games::SMTNocturne::Demons::Demon->from_name($demon1)
         unless ref($demon1);
