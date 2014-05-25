@@ -30,14 +30,20 @@ sub from_name {
 }
 
 sub from_fusion_stats {
-    my ($class, $type, $level, $fusion_type) = @_;
+    my ($class, $options) = @_;
 
-    die "unknown type $type" unless $DEMONS_BY_TYPE{$type};
+    die "unknown type $options->{type}"
+        unless $DEMONS_BY_TYPE{$options->{type}};
+
+    my @possible = @{ $DEMONS_BY_TYPE{$options->{type}} };
+
+    @possible = grep { $_->fusion_type eq $options->{fusion_type} } @possible
+        if $options->{fusion_type};
 
     my $found;
-    for my $demon (grep { $_->fusion_type eq $fusion_type } @{ $DEMONS_BY_TYPE{$type} }) {
+    for my $demon (@possible) {
         $found = $demon;
-        last if $demon->level >= $level;
+        last if $demon->level >= $options->{level};
     }
 
     return $found;
