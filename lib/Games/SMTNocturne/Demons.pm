@@ -90,6 +90,8 @@ sub _normal_fusion {
     my $new_type = Games::SMTNocturne::Demons::FusionChart::fuse(
         $demon1->type, $demon2->type
     );
+    return unless $new_type;
+
     my $new_level = ($demon1->level + $demon2->level) / 2;
 
     return Games::SMTNocturne::Demons::Demon->from_type_and_level(
