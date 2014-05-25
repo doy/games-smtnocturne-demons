@@ -43,6 +43,14 @@ sub from_type_and_level {
     return $found;
 }
 
+sub from_type {
+    my ($class, $type) = @_;
+
+    die "unknown type $type" unless $DEMONS_BY_TYPE{$type};
+
+    return @{ $DEMONS_BY_TYPE{$type} };
+}
+
 # sub boss        { $_[0]->{boss} }
 sub fusion_type { $_[0]->{fusion_type} }
 sub level       { $_[0]->{level} }
