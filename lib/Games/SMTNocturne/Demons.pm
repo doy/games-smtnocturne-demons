@@ -25,6 +25,7 @@ sub fuse {
     }
     elsif ($demon1->type eq 'Mitama' && $demon2->type eq 'Mitama') {
         # XXX what does this do?
+        die "mitama fusion nyi";
     }
     elsif ($demon1->type eq 'Mitama' || $demon2->type eq 'Mitama') {
         return _mitama_fusion(
