@@ -13,14 +13,30 @@ sub fuse {
     $demon2 = Games::SMTNocturne::Demons::Demon->from_name($demon2)
         unless ref($demon2);
 
-    my $new_type = Games::SMTNocturne::Demons::FusionChart::fuse(
-        $demon1->type, $demon2->type
-    );
-    my $new_level = ($demon1->level + $demon2->level) / 2;
-
-    return Games::SMTNocturne::Demons::Demon->from_type_and_level(
-        $new_type, $new_level
-    );
+    if ($demon1->type eq 'Element' && $demon2->type eq 'Element') {
+        return _fuse_mitama($demon1, $demon2);
+    }
+    elsif ($demon1->type eq 'Element' || $demon2->type eq 'Element') {
+        return _element_fusion(
+            $demon1->type eq 'Element'
+                ? ($demon1, $demon2) : ($demon2, $demon1)
+        );
+    }
+    elsif ($demon1->type eq 'Mitama' && $demon2->type eq 'Mitama') {
+        # XXX what does this do?
+    }
+    elsif ($demon1->type eq 'Mitama' || $demon2->type eq 'Mitama') {
+        return _mitama_fusion(
+            $demon1->type eq 'Mitama'
+                ? ($demon1, $demon2) : ($demon2, $demon1)
+        );
+    }
+    elsif ($demon1->type eq $demon2->type) {
+        return _fuse_element($demon1, $demon2);
+    }
+    else {
+        return _normal_fusion($demon1, $demon2);
+    }
 }
 
 sub fusions_for {
@@ -42,6 +58,43 @@ sub fusions_for {
     }
 
     return @fusions;
+}
+
+sub _fuse_mitama {
+    my ($element1, $element2) = @_;
+
+    die "element fusion nyi";
+}
+
+sub _element_fusion {
+    my ($element, $demon) = @_;
+
+    die "element fusion nyi";
+}
+
+sub _mitama_fusion {
+    my ($mitama, $demon) = @_;
+
+    return $demon;
+}
+
+sub _fuse_element {
+    my ($demon1, $demon2) = @_;
+
+    die "element fusion nyi";
+}
+
+sub _normal_fusion {
+    my ($demon1, $demon2) = @_;
+
+    my $new_type = Games::SMTNocturne::Demons::FusionChart::fuse(
+        $demon1->type, $demon2->type
+    );
+    my $new_level = ($demon1->level + $demon2->level) / 2;
+
+    return Games::SMTNocturne::Demons::Demon->from_type_and_level(
+        $new_type, $new_level
+    );
 }
 
 1;
