@@ -1563,15 +1563,15 @@ __DATA__
             "name" : "Raphael"
          }
       },
-      "Ongyo-ki" : {
+      "Ongyo-Ki" : {
          "demon1" : {
-            "name" : "Kin-ki"
+            "name" : "Kin-Ki"
          },
          "demon2" : {
-            "name" : "Sui-ki"
+            "name" : "Sui-Ki"
          },
          "demon3" : {
-            "name" : "Fuu-ki"
+            "name" : "Fuu-Ki"
          }
       },
       "Pale Rider" : {
