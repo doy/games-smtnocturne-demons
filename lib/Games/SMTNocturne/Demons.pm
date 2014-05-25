@@ -75,7 +75,92 @@ sub fusions_for {
         }
     }
 
-    return @fusions;
+    my $special = Games::SMTNocturne::Demons::FusionChart::special_fusion_for(
+        $demon->name
+    );
+    my @special_fusions;
+    if ($special) {
+        for my $key (qw(demon1 demon2 demon3 target sacrifice)) {
+            next unless $special->{$key};
+            if (my $name = $special->{$key}{name}) {
+                $special->{$key} = [
+                    Games::SMTNocturne::Demons::Demon->from_name($name)
+                ];
+            }
+            elsif (my $type = $special->{$key}{type}) {
+                my @types = ref($type) ? (@$type) : ($type);
+                $special->{$key} = [
+                    map {
+                        Games::SMTNocturne::Demons::Demon->from_type($_)
+                    } @types
+                ];
+            }
+        }
+
+        if ($special->{demon3}) {
+            for my $demon1 (@{ $special->{demon1} }) {
+                for my $demon2 (@{ $special->{demon2} }) {
+                    for my $demon3 (@{ $special->{demon3} }) {
+                        push @special_fusions, [ $demon1, $demon2, $demon3 ];
+                        push @special_fusions, [ $demon1, $demon3, $demon2 ];
+                        push @special_fusions, [ $demon2, $demon3, $demon1 ];
+                    }
+                }
+            }
+        }
+        elsif ($special->{demon2}) {
+            for my $demon1 (@{ $special->{demon1} }) {
+                for my $demon2 (@{ $special->{demon2} }) {
+                    push @special_fusions, [ $demon1, $demon2 ];
+                }
+            }
+        }
+        elsif ($special->{demon1}) {
+            if ($special->{target}) {
+                my @target_fusions = map {
+                    fusions_for($_)
+                } @{ $special->{target} };
+                push @special_fusions, grep {
+                    my $fusion = $_;
+                    grep { $_ eq $fusion->[0] || $_ eq $fusion->[1] }
+                         @{ $special->{demon1} }
+                } @target_fusions;
+            }
+            else {
+                die "???";
+            }
+        }
+        else {
+            if ($special->{target}) {
+                push @special_fusions, map {
+                    fusions_for($_)
+                } @{ $special->{target} };
+            }
+            else {
+                die "???";
+            }
+        }
+
+        if ($special->{sacrifice}) {
+            @special_fusions = map {
+                my $sac = $_;
+                map { [ @$_, $sac ] } @special_fusions
+            } @{ $special->{sacrifice} };
+        }
+
+        if ($special->{deathstone}) {
+            push @$_, '<deathstone>' for @special_fusions;
+        }
+
+        if ($special->{kagatsuchi}) {
+            @special_fusions = map {
+                my $phase = $_;
+                map { [ @$_, "<kagatsuchi $phase>" ] } @special_fusions
+            } @{ $special->{kagatsuchi} };
+        }
+    }
+
+    return @fusions, @special_fusions;
 }
 
 sub _try_special_fusion {

@@ -148,6 +148,13 @@ sub special_fusion {
     return;
 }
 
+sub special_fusion_for {
+    my ($demon) = @_;
+
+    return unless $SPECIAL{$demon};
+    return { %{ $SPECIAL{$demon} } };
+}
+
 1;
 
 __DATA__
