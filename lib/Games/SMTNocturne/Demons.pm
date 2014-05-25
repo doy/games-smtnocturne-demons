@@ -65,7 +65,11 @@ sub fusions_for {
 sub _fuse_mitama {
     my ($element1, $element2) = @_;
 
-    die "element fusion nyi";
+    my $mitama = Games::SMTNocturne::Demons::FusionChart::fuse_mitama(
+        $element1->name, $element2->name
+    );
+    return unless $mitama;
+    return Games::SMTNocturne::Demons::Demon->from_name($mitama);
 }
 
 sub _element_fusion {

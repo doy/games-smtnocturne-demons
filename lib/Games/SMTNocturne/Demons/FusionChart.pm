@@ -43,6 +43,36 @@ sub element_fusion {
     return $TYPES{$type}{element_fusions}{$element};
 }
 
+sub fuse_mitama {
+    my ($element1, $element2) = @_;
+
+    # XXX move this into actual data somewhere
+    my %mitama_fusions = (
+        Erthys => {
+            Aeros => 'Nigi Mitama',
+            Aquans => 'Ara Mitama',
+            Flaemis => 'Kusi Mitama',
+        },
+        Aeros => {
+            Erthys => 'Nigi Mitama',
+            Aquans => 'Kusi Mitama',
+            Flaemis => 'Ara Mitama',
+        },
+        Aquans => {
+            Erthys => 'Ara Mitama',
+            Aeros => 'Kusi Mitama',
+            Flaemis => 'Saki Mitama',
+        },
+        Flaemis => {
+            Erthys => 'Kusi Mitama',
+            Aeros => 'Ara Mitama',
+            Aquans => 'Saki Mitama',
+        },
+    );
+
+    return $mitama_fusions{$element1}{$element2};
+}
+
 1;
 
 __DATA__
