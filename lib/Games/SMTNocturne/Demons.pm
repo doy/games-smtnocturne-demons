@@ -54,7 +54,7 @@ sub fusions_for {
         for my $demon1 (Games::SMTNocturne::Demons::Demon->from_type($type1)) {
             for my $demon2 (Games::SMTNocturne::Demons::Demon->from_type($type2)) {
                 push @fusions, [ $demon1, $demon2 ]
-                    if fuse($demon1, $demon2) eq $demon;
+                    if (fuse($demon1, $demon2) || '') eq $demon;
             }
         }
     }
