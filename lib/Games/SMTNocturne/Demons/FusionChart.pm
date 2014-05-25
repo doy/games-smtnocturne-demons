@@ -24,7 +24,7 @@ sub unfuse {
     for my $type1 (keys %TYPES) {
         for my $type2 (grep { $_ ge $type1 } keys %TYPES) {
             push @combinations, [ $type1, $type2 ]
-                if $TYPES{$type1}{$type2} eq $type;
+                if ($TYPES{$type1}{$type2} || '') eq $type;
         }
     }
 
