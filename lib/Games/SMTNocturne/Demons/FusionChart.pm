@@ -15,6 +15,22 @@ sub fuse {
     return $TYPES{$type1}{$type2};
 }
 
+sub unfuse {
+    my ($type) = @_;
+
+    die "unknown demon type $type" unless $TYPES{$type};
+
+    my @combinations;
+    for my $type1 (keys %TYPES) {
+        for my $type2 (grep { $_ le $type1 } keys %TYPES) {
+            push @combinations, [ $type1, $type2 ]
+                if $TYPES{$type1}{$type2} eq $type;
+        }
+    }
+
+    return @combinations;
+}
+
 1;
 
 __DATA__
