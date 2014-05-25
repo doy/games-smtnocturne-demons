@@ -1,6 +1,7 @@
 package Games::SMTNocturne::Demons::Demon;
 use strict;
 use warnings;
+use overload '""' => 'to_string', fallback => 1;
 
 use JSON::PP;
 
@@ -46,6 +47,11 @@ sub from_type_and_level {
 sub fusion_type { $_[0]->{fusion_type} }
 sub level       { $_[0]->{level} }
 sub type        { $_[0]->{type} }
+
+sub to_string {
+    my $self = shift;
+    return '<' . $self->type . ' ' . $self->name . ' (' . $self->level . ')>'
+}
 
 1;
 
