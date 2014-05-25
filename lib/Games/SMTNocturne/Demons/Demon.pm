@@ -112,7 +112,7 @@ __DATA__
       "type" : "Mitama"
    },
    "Arahabaki" : {
-      "fusion_type" : "normal",
+      "fusion_type" : "evolve",
       "level" : "30",
       "type" : "Vile"
    },
