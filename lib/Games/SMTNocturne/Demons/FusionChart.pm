@@ -10,7 +10,7 @@ sub fuse {
     my ($type1, $type2) = @_;
 
     die "unknown demon type $type1" unless $TYPES{$type1};
-    die "unknown demon type $type2" unless $TYPES{$type1}{$type2};
+    die "unknown demon type $type2" unless $TYPES{$type2};
 
     return $TYPES{$type1}{$type2};
 }
