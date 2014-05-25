@@ -7,16 +7,17 @@ use JSON::PP;
 my %DEMONS_BY_NAME = %{ decode_json(do { local $/; <DATA> }) };
 for my $name (keys %DEMONS_BY_NAME) {
     $DEMONS_BY_NAME{$name}{name} = $name;
+    $DEMONS_BY_NAME{$name} = bless $DEMONS_BY_NAME{$name}, __PACKAGE__;
 }
 
 my %DEMONS_BY_TYPE;
 for my $name (keys %DEMONS_BY_NAME) {
-    my $data = $DEMONS_BY_NAME{$name};
-    push @{ $DEMONS_BY_TYPE{$data->{type}} ||= [] }, $data;
+    my $demon = $DEMONS_BY_NAME{$name};
+    push @{ $DEMONS_BY_TYPE{$demon->type} ||= [] }, $demon;
 }
 for my $type (keys %DEMONS_BY_TYPE) {
     my $demons = $DEMONS_BY_TYPE{$type};
-    @$demons = sort { $a->{level} <=> $b->{level} } @$demons;
+    @$demons = sort { $a->level <=> $b->level } @$demons;
 }
 
 sub from_name {
@@ -24,7 +25,7 @@ sub from_name {
 
     die "unknown demon $name" unless $DEMONS_BY_NAME{$name};
 
-    return bless { %{ $DEMONS_BY_NAME{$name} } }, $class;
+    return $DEMONS_BY_NAME{$name};
 }
 
 sub from_type_and_level {
@@ -35,10 +36,10 @@ sub from_type_and_level {
     my $found;
     for my $demon (@{ $DEMONS_BY_TYPE{$type} }) {
         $found = $demon;
-        last if $demon->{level} >= $level;
+        last if $demon->level >= $level;
     }
 
-    return bless { %$found }, $class;
+    return $found;
 }
 
 # sub boss        { $_[0]->{boss} }
