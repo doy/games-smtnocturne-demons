@@ -19,7 +19,7 @@ for my $type (keys %DEMONS_BY_TYPE) {
     @$demons = sort { $a->{level} <=> $b->{level} } @$demons;
 }
 
-sub new_from_name {
+sub from_name {
     my ($class, $name) = @_;
 
     die "unknown demon $name" unless $DEMONS_BY_NAME{$name};
@@ -27,7 +27,7 @@ sub new_from_name {
     return bless { %{ $DEMONS_BY_NAME{$name} } }, $class;
 }
 
-sub new_from_type_and_level {
+sub from_type_and_level {
     my ($class, $type, $level) = @_;
 
     die "unknown type $type" unless $DEMONS_BY_TYPE{$type};
