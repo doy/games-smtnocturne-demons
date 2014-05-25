@@ -75,6 +75,79 @@ sub fuse_mitama {
     return $mitama_fusions{$element1}{$element2};
 }
 
+sub special_fusion {
+    my ($demon1, $demon2, $options) = @_;
+
+    my $find = sub {
+        my ($need, @have) = @_;
+
+        if (my $name = $need->{name}) {
+            return (grep { $_->name eq $name } @have)[0];
+        }
+        elsif (my $type = $need->{type}) {
+            my @types = ref($need->{type}) ? @$type : ($type);
+            return (
+                grep { my $d = $_; grep { $d->type eq $_ } @types } @have
+            )[0];
+        }
+        else {
+            return undef;
+        }
+    };
+
+    DEMON: for my $demon (keys %SPECIAL) {
+        my $conditions = $SPECIAL{$demon};
+
+        if ($conditions->{deathstone}) {
+            next unless $options->{deathstone};
+        }
+
+        if (my $phases = $conditions->{kagatsuchi}) {
+            next unless defined $options->{kagatsuchi}
+                     && grep { $_ == $options->{kagatsuchi} } @$phases;
+        }
+
+        if (my $sacrifice = $conditions->{sacrifice}) {
+            next unless $find->(
+                $sacrifice,
+                ($options->{sacrifice} ? ($options->{sacrifice}) : ())
+            );
+        }
+
+        if (my $target = $conditions->{target}) {
+            if (my $type = $target->{type}) {
+                next unless fuse($demon1->type, $demon2->type) eq $type;
+            }
+            elsif (my $name = $target->{name}) {
+                require Games::SMTNocturne::Demons;
+                my $fused = Games::SMTNocturne::Demons::fuse(
+                    $demon1, $demon2, { %$options, basic => 1 }
+                );
+                next unless $fused && $fused->name eq $name;
+            }
+            else {
+                next;
+            }
+        }
+
+        my @have = ($demon1, $demon2);
+        push @have, $options->{sacrifice}
+            if $conditions->{demon3} && $options->{sacrifice};
+
+        for my $key (qw(demon1 demon2 demon3)) {
+            if ($conditions->{$key}) {
+                my $found = $find->($conditions->{$key}, @have);
+                next DEMON unless $found;
+                @have = grep { $_ ne $found } @have;
+            }
+        }
+
+        return $demon;
+    }
+
+    return;
+}
+
 1;
 
 __DATA__

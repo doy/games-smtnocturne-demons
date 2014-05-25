@@ -7,11 +7,26 @@ use Games::SMTNocturne::Demons::FusionChart;
 
 sub fuse {
     my ($demon1, $demon2, $options) = @_;
+    $options = { %$options };
 
     $demon1 = Games::SMTNocturne::Demons::Demon->from_name($demon1)
         unless ref($demon1);
     $demon2 = Games::SMTNocturne::Demons::Demon->from_name($demon2)
         unless ref($demon2);
+    if ($options->{sacrifice}) {
+        $options->{sacrifice} = Games::SMTNocturne::Demons::Demon->from_name(
+            $options->{sacrifice}
+        ) unless ref($options->{sacrifice});
+    }
+
+    if (!$options->{basic}) {
+        if (my $demon = _try_special_fusion($demon1, $demon2, $options)) {
+            return $demon;
+        }
+        else {
+            $options->{fusion_type} = 'normal';
+        }
+    }
 
     if ($demon1->type eq 'Element' && $demon2->type eq 'Element') {
         return _fuse_mitama($demon1, $demon2, $options);
@@ -63,6 +78,22 @@ sub fusions_for {
     return @fusions;
 }
 
+sub _try_special_fusion {
+    my ($demon1, $demon2, $options) = @_;
+
+    my $fused = Games::SMTNocturne::Demons::FusionChart::special_fusion(
+        $demon1, $demon2, $options
+    );
+    return unless $fused;
+
+    my $demon = Games::SMTNocturne::Demons::Demon->from_name($fused);
+
+    my %bosses = map { $_ => 1 } @{ $options->{bosses} || [] };
+    return if $demon->boss && !$bosses{$demon->name};
+
+    return $demon;
+}
+
 sub _fuse_mitama {
     my ($element1, $element2) = @_;
 
@@ -82,10 +113,9 @@ sub _element_fusion {
     return unless $direction;
 
     return Games::SMTNocturne::Demons::Demon->from_fusion_stats({
-        type        => $demon->type,
-        level       => $demon->level,
-        fusion_type => 'normal',
-        offset      => $direction,
+        type   => $demon->type,
+        level  => $demon->level,
+        offset => $direction,
         %{ $options || {} },
     });
 }
@@ -117,9 +147,8 @@ sub _normal_fusion {
     my $new_level = ($demon1->level + $demon2->level) / 2 + 1;
 
     return Games::SMTNocturne::Demons::Demon->from_fusion_stats({
-        type        => $new_type,
-        level       => $new_level,
-        fusion_type => 'normal',
+        type  => $new_type,
+        level => $new_level,
         %{ $options || {} },
     });
 }
