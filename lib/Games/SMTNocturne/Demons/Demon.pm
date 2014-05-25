@@ -46,6 +46,7 @@ sub from_type_and_level {
 # sub boss        { $_[0]->{boss} }
 sub fusion_type { $_[0]->{fusion_type} }
 sub level       { $_[0]->{level} }
+sub name        { $_[0]->{name} }
 sub type        { $_[0]->{type} }
 
 sub to_string {
