@@ -29,13 +29,13 @@ sub from_name {
     return $DEMONS_BY_NAME{$name};
 }
 
-sub from_type_and_level {
-    my ($class, $type, $level) = @_;
+sub from_fusion_stats {
+    my ($class, $type, $level, $fusion_type) = @_;
 
     die "unknown type $type" unless $DEMONS_BY_TYPE{$type};
 
     my $found;
-    for my $demon (@{ $DEMONS_BY_TYPE{$type} }) {
+    for my $demon (grep { $_->fusion_type eq $fusion_type } @{ $DEMONS_BY_TYPE{$type} }) {
         $found = $demon;
         last if $demon->level >= $level;
     }

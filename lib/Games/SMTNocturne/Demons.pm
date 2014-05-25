@@ -94,8 +94,8 @@ sub _normal_fusion {
 
     my $new_level = ($demon1->level + $demon2->level) / 2 + 1;
 
-    return Games::SMTNocturne::Demons::Demon->from_type_and_level(
-        $new_type, $new_level
+    return Games::SMTNocturne::Demons::Demon->from_fusion_stats(
+        $new_type, $new_level, 'normal'
     );
 }
 
