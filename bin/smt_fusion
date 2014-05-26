@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Getopt::Long;
-use List::Util 'max';
+use List::Util 'max', 'sum0';
 
 use Games::SMTNocturne::Demons;
 
@@ -82,67 +82,161 @@ sub party_fusion {
     my @demons = @_;
 
     my $seen = _party_fusion_recursive_fuse(
-        {},
+        {
+            map { $_ => _demon($_) } @demons
+        },
+        {
+            map { $_ => _demon($_) } @demons
+        },
         $deathstones,
         map { _demon($_) } @demons
     );
-    print join("\n",
-        sort { $a->level <=> $b->level } map { _demon($_) } keys %$seen
-    ), "\n";
+    my @found =
+        sort { $a->level <=> $b->level }
+            map { _demon($_) }
+                keys %$seen;
+    for my $demon (@found) {
+        my $path = $seen->{$demon->name};
+        if (ref($path) eq 'ARRAY') {
+            print "$demon:\n";
+            my ($fusion, $current) = @$path;
+            print "  $_\n" for _linearize_tree($current, $fusion);
+        }
+        else {
+            print "$demon\n";
+        }
+    }
 }
 my $SEEN = {};
 sub _party_fusion_recursive_fuse {
-    my ($seen, $deathstones, @demons) = @_;
+    my ($seen, $current, $deathstones, @demons) = @_;
 
-    return $seen if $SEEN->{join(';', @demons)}++;
-
-    $seen->{$_} = 1 for map { $_->name } @demons;
+    return $seen if $SEEN->{join(';', @demons, ($deathstones || ''))}++;
 
     if (@demons > 1) {
-        my $check_fusion = sub {
-            my ($demon1, $demon2, $sacrifice, $phase) = @_;
-
-            my $fused = _fuse(
-                $demon1, $demon2,
-                {
-                    %$options,
-                    sacrifice => $sacrifice,
-                    deathstone => $deathstones,
-                    kagatsuchi => $phase,
-                },
-            );
-            return unless $fused;
-            return if defined $max_level && $fused->level > $max_level;
-            my @new_party = (
-                $fused,
-                grep {
-                    $_ ne $demon1 && $_ ne $demon2
-                    && (!$sacrifice || $_ ne $sacrifice)
-                } @demons
-            );
-            _party_fusion_recursive_fuse(
-                $seen,
-                ($fused->type eq 'Fiend' ? $deathstones - 1 : $deathstones),
-                @new_party
-            );
-        };
-
         for my $demon1 (@demons) {
             for my $demon2 (grep { $_ ne $demon1 } @demons) {
                 if ($deathstones) {
                     for my $phase (0..8) {
-                        $check_fusion->($demon1, $demon2, undef, $phase);
+                        _check_fusion(
+                            $seen, $current, \@demons,
+                            $demon1, $demon2, undef,
+                            $deathstones, $phase
+                        );
                     }
                 }
                 else {
-                    $check_fusion->($demon1, $demon2);
+                    _check_fusion($seen, $current, \@demons, $demon1, $demon2);
                 }
                 for my $demon3 (grep { $_ ne $demon1 && $_ ne $demon2 } @demons) {
-                    $check_fusion->($demon1, $demon2, $demon3);
+                    _check_fusion(
+                        $seen, $current, \@demons, $demon1, $demon2, $demon3
+                    );
                 }
             }
         }
     }
 
     return $seen;
+}
+sub _check_fusion {
+    my ($seen, $current, $party, $demon1, $demon2, $sacrifice, $deathstones, $phase) = @_;
+
+    my $fused = _fuse(
+        $demon1, $demon2,
+        {
+            %$options,
+            sacrifice => $sacrifice,
+            deathstone => $deathstones,
+            kagatsuchi => $phase,
+        },
+    );
+    return unless $fused;
+    return if defined $max_level && $fused->level > $max_level;
+
+    my $new_current = { %$current };
+
+    my $new_fusion = Games::SMTNocturne::Demons::Fusion->new(
+        $demon1, $demon2,
+        ($sacrifice
+            ? ($sacrifice)
+            : ()),
+        ($fused->type eq 'Fiend'
+            ? ('<deathstone>', $phase)
+            : ()),
+    );
+    if (my $old_fusion = $new_current->{$fused->name}) {
+        my $old_max_level = _max_level($new_current, $old_fusion);
+        my $new_max_level = _max_level($new_current, $new_fusion);
+        if ($new_max_level < $old_max_level) {
+            $new_current->{$fused->name} = $new_fusion;
+        }
+        else {
+            my $old_demon_count = _demon_count($new_current, $old_fusion);
+            my $new_demon_count = _demon_count($new_current, $new_fusion);
+            if ($new_demon_count < $old_demon_count) {
+                $new_current->{$fused->name} = $new_fusion;
+            }
+        }
+    }
+    else {
+        $new_current->{$fused->name} = $new_fusion;
+    }
+    if (my $old = $seen->{$fused->name}) {
+        my ($old_fusion, $old_current) = ref($old) eq 'ARRAY'
+            ? @$old : ($old, undef);
+        my $old_max_level = _max_level($old_current, $old_fusion);
+        my $new_max_level = _max_level($new_current, $new_fusion);
+        if ($new_max_level < $old_max_level) {
+            $seen->{$fused->name} = [ $new_fusion, $new_current ];
+        }
+        else {
+            my $old_demon_count = _demon_count($old_current, $old_fusion);
+            my $new_demon_count = _demon_count($new_current, $new_fusion);
+            if ($new_demon_count < $old_demon_count) {
+                $seen->{$fused->name} = [ $new_fusion, $new_current ];
+            }
+        }
+    }
+    else {
+        $seen->{$fused->name} = [ $new_fusion, $new_current ];
+    }
+
+    my @new_party = (
+        $fused,
+        grep {
+            $_ ne $demon1 && $_ ne $demon2 && (!$sacrifice || $_ ne $sacrifice)
+        } @$party
+    );
+    _party_fusion_recursive_fuse(
+        $seen, $new_current,
+        ($fused->type eq 'Fiend' ? $deathstones - 1 : $deathstones),
+        @new_party
+    );
+}
+sub _max_level {
+    my ($seen, $fusion) = @_;
+
+    return 0 if $fusion->isa('Games::SMTNocturne::Demons::Demon');
+    return 1 + max(
+        map { _max_level($seen, $seen->{$_->name}) } $fusion->all_demons
+    );
+}
+sub _demon_count {
+    my ($seen, $fusion) = @_;
+
+    return 1 if $fusion->isa('Games::SMTNocturne::Demons::Demon');
+    my @demons = $fusion->all_demons;
+    return @demons + sum0(
+        map { _demon_count($seen, $seen->{$_->name}) } @demons
+    );
+}
+sub _linearize_tree {
+    my ($seen, $fusion) = @_;
+
+    return if $fusion->isa('Games::SMTNocturne::Demons::Demon');
+    return (
+        (map { _linearize_tree($seen, $seen->{$_->name}) } $fusion->all_demons),
+        $fusion,
+    );
 }
