@@ -2,6 +2,9 @@ package Games::SMTNocturne::Demons;
 use strict;
 use warnings;
 
+use Exporter 'import';
+our @EXPORT_OK = qw(fuse fusions_for);
+
 use Games::SMTNocturne::Demons::Demon;
 use Games::SMTNocturne::Demons::FusionChart;
 
