@@ -1,0 +1,55 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use List::Util 'max';
+
+use Games::SMTNocturne::Demons;
+
+sub _demon       { Games::SMTNocturne::Demons::demon(@_) }
+sub _fuse        { Games::SMTNocturne::Demons::fuse(@_) }
+sub _fusions_for { Games::SMTNocturne::Demons::fusions_for(@_) }
+
+my $command = shift @ARGV;
+
+if ($command !~ /^_/ && defined &$command) {
+    { no strict 'refs'; &{ $command }(@ARGV) }
+}
+else {
+    die "unknown command $command";
+}
+
+sub demon {
+    my ($demon) = @_;
+    print _demon($demon), "\n";
+}
+
+sub fuse {
+    my ($demon1, $demon2) = @_;
+    print _fuse($demon1, $demon2), "\n";
+}
+
+sub fusions_for {
+    my ($demon) = @_;
+    print join("\n", _fusions_for($demon)), "\n";
+}
+
+sub min_level_for {
+    my ($demon) = @_;
+
+    my @fusions = _fusions_for($demon);
+    my $min_level = 99;
+    my @min_level_fusions;
+    for my $fusion (@fusions) {
+        my $max_level = max(map { $_->level } $fusion->all_demons);
+        if ($max_level < $min_level) {
+            @min_level_fusions = ($fusion);
+            $min_level = $max_level;
+        }
+        elsif ($max_level == $min_level) {
+            push @min_level_fusions, $fusion;
+        }
+    }
+    print "Level $min_level:\n";
+    print join("\n", @min_level_fusions), "\n";
+}
