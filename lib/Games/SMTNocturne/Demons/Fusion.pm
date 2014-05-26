@@ -36,6 +36,18 @@ sub demons     { $_[0]->{demons} }
 sub sacrifice  { $_[0]->{sacrifice} }
 sub deathstone { $_[0]->{deathstone} }
 sub kagatsuchi { $_[0]->{kagatsuchi} }
+sub result {
+    my $self = shift;
+    require Games::SMTNocturne::Demons;
+    $self->{result} ||= Games::SMTNocturne::Demons::fuse(
+        @{ $self->demons },
+        {
+            sacrifice  => $self->sacrifice,
+            deathstone => $self->deathstone,
+            kagatsuchi => @{ $self->kagatsuchi || [] }[0],
+        }
+    );
+}
 
 sub all_demons {
     my $self = shift;
@@ -71,6 +83,7 @@ sub to_string {
     $str .= " when Kagutsuchi is at phase "
           . join(", ", map { "$_/8" } @{ $self->kagatsuchi })
         if defined $self->kagatsuchi;
+    $str .= " resulting in " . $self->result;
 
     return $str;
 }
