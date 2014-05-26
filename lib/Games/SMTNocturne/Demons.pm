@@ -85,7 +85,7 @@ sub fusions_for {
             for my $demon2 (Games::SMTNocturne::Demons::Demon->from_type($type2)) {
                 next if defined $options->{max_level}
                      && $options->{max_level} < $demon2->level;
-                push @fusions, [ $demon1, $demon2 ]
+                push @fusions, [ $options, $demon1, $demon2 ]
                     if (fuse($demon1, $demon2, $options) || '') eq $demon;
             }
         }
@@ -119,9 +119,15 @@ sub fusions_for {
             for my $demon1 (@{ $special->{demon1} }) {
                 for my $demon2 (@{ $special->{demon2} }) {
                     for my $demon3 (@{ $special->{demon3} }) {
-                        push @special_fusions, [ $demon1, $demon2, $demon3 ];
-                        push @special_fusions, [ $demon1, $demon3, $demon2 ];
-                        push @special_fusions, [ $demon2, $demon3, $demon1 ];
+                        push @special_fusions, [
+                            $options, $demon1, $demon2, $demon3
+                        ];
+                        push @special_fusions, [
+                            $options, $demon1, $demon3, $demon2
+                        ];
+                        push @special_fusions, [
+                            $options, $demon2, $demon3, $demon1
+                        ];
                     }
                 }
             }
@@ -129,7 +135,7 @@ sub fusions_for {
         elsif ($special->{demon2}) {
             for my $demon1 (@{ $special->{demon1} }) {
                 for my $demon2 (@{ $special->{demon2} }) {
-                    push @special_fusions, [ $demon1, $demon2 ];
+                    push @special_fusions, [ $options, $demon1, $demon2 ];
                 }
             }
         }

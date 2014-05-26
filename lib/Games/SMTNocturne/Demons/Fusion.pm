@@ -6,7 +6,7 @@ use overload '""' => 'to_string';
 use Games::SMTNocturne::Demons::Demon;
 
 sub new {
-    my ($class, $demon1, $demon2, $options, $sacrifice, $kagatsuchi) = @_;
+    my ($class, $options, $demon1, $demon2, $sacrifice, $kagatsuchi) = @_;
 
     my $attrs = {};
 
@@ -63,7 +63,7 @@ sub all_demons {
 
 sub raw {
     my $self = shift;
-    my $array = [ @{ $self->demons } ];
+    my $array = [ $self->options, @{ $self->demons } ];
     push @$array, $self->sacrifice
         if $self->sacrifice;
     push @$array, "<deathstone>"

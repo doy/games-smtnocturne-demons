@@ -157,8 +157,8 @@ sub _check_fusion {
     my $new_current = { %$current };
 
     my $new_fusion = Games::SMTNocturne::Demons::Fusion->new(
-        $demon1, $demon2,
         $options,
+        $demon1, $demon2,
         ($sacrifice
             ? ($sacrifice)
             : ()),
