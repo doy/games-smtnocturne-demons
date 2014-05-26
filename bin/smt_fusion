@@ -7,9 +7,10 @@ use List::Util 'max';
 
 use Games::SMTNocturne::Demons;
 
-sub _demon       { Games::SMTNocturne::Demons::demon(@_) }
-sub _fuse        { Games::SMTNocturne::Demons::fuse(@_) }
-sub _fusions_for { Games::SMTNocturne::Demons::fusions_for(@_) }
+sub _demon          { Games::SMTNocturne::Demons::demon(@_) }
+sub _demons_of_type { Games::SMTNocturne::Demons::demons_of_type(@_) }
+sub _fuse           { Games::SMTNocturne::Demons::fuse(@_) }
+sub _fusions_for    { Games::SMTNocturne::Demons::fusions_for(@_) }
 
 my $command = shift @ARGV;
 
@@ -40,6 +41,11 @@ else {
 sub demon {
     my ($demon) = @_;
     print _demon($demon), "\n";
+}
+
+sub demons_of_type {
+    my ($type) = @_;
+    print join("\n", _demons_of_type($type)), "\n";
 }
 
 sub fuse {
