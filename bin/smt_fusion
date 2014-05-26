@@ -13,15 +13,19 @@ sub _fusions_for { Games::SMTNocturne::Demons::fusions_for(@_) }
 
 my $command = shift @ARGV;
 
-my ($max_level, $bosses);
+my ($max_level, $deathstones, $kagatsuchi, $bosses);
 GetOptions(
-    "max_level=i" => \$max_level,
-    "boss=s@"     => \$bosses,
+    "max_level=i"   => \$max_level,
+    "deathstones=i" => \$deathstones,
+    "kagatsuchi=i"  => \$kagatsuchi,
+    "boss=s@"       => \$bosses,
 ) or die "couldn't parse options";
 
 my $options = {
-    max_level => $max_level,
-    bosses    => $bosses,
+    max_level  => $max_level,
+    deathstone => $deathstones,
+    kagatsuchi => $kagatsuchi,
+    bosses     => $bosses,
 };
 
 if ($command !~ /^_/ && defined &$command) {
@@ -68,23 +72,30 @@ sub min_level_for {
 
 sub party_fusion {
     my @demons = @_;
-    my $seen = _party_fusion_recursive_fuse({}, map { _demon($_) } @demons);
+
+    my $seen = _party_fusion_recursive_fuse(
+        {},
+        $deathstones,
+        map { _demon($_) } @demons
+    );
     print join("\n", map { _demon($_) } sort { $a cmp $b } keys %$seen), "\n";
 }
 sub _party_fusion_recursive_fuse {
-    my ($seen, @demons) = @_;
+    my ($seen, $deathstones, @demons) = @_;
 
     $seen->{$_} = 1 for map { $_->name } @demons;
 
     if (@demons > 1) {
         my $check_fusion = sub {
-            my ($demon1, $demon2, $sacrifice) = @_;
+            my ($demon1, $demon2, $sacrifice, $phase) = @_;
 
             my $fused = _fuse(
                 $demon1, $demon2,
                 {
                     %$options,
                     sacrifice => $sacrifice,
+                    deathstone => $deathstones,
+                    kagatsuchi => $phase,
                 },
             );
             return unless $fused;
@@ -96,12 +107,23 @@ sub _party_fusion_recursive_fuse {
                     && (!$sacrifice || $_ ne $sacrifice)
                 } @demons
             );
-            _party_fusion_recursive_fuse($seen, @new_party);
+            _party_fusion_recursive_fuse(
+                $seen,
+                ($fused->type eq 'Fiend' ? $deathstones - 1 : $deathstones),
+                @new_party
+            );
         };
 
         for my $demon1 (@demons) {
             for my $demon2 (grep { $_ ne $demon1 } @demons) {
-                $check_fusion->($demon1, $demon2);
+                if ($deathstones) {
+                    for my $phase (0..8) {
+                        $check_fusion->($demon1, $demon2, undef, $phase);
+                    }
+                }
+                else {
+                    $check_fusion->($demon1, $demon2);
+                }
                 for my $demon3 (grep { $_ ne $demon1 && $_ ne $demon2 } @demons) {
                     $check_fusion->($demon1, $demon2, $demon3);
                 }
