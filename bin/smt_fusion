@@ -77,15 +77,34 @@ sub _party_fusion_recursive_fuse {
     $seen->{$_} = 1 for map { $_->name } @demons;
 
     if (@demons > 1) {
+        my $check_fusion = sub {
+            my ($demon1, $demon2, $sacrifice) = @_;
+
+            my $fused = _fuse(
+                $demon1, $demon2,
+                {
+                    %$options,
+                    sacrifice => $sacrifice,
+                },
+            );
+            return unless $fused;
+            return if defined $max_level && $fused->level > $max_level;
+            my @new_party = (
+                $fused,
+                grep {
+                    $_ ne $demon1 && $_ ne $demon2
+                    && (!$sacrifice || $_ ne $sacrifice)
+                } @demons
+            );
+            _party_fusion_recursive_fuse($seen, @new_party);
+        };
+
         for my $demon1 (@demons) {
             for my $demon2 (grep { $_ ne $demon1 } @demons) {
-                my $fused = _fuse($demon1, $demon2, $options);
-                next unless $fused;
-                next if defined $max_level && $fused->level > $max_level;
-                my @new_party = (
-                    $fused, grep { $_ ne $demon1 && $_ ne $demon2 } @demons
-                );
-                _party_fusion_recursive_fuse($seen, @new_party);
+                $check_fusion->($demon1, $demon2);
+                for my $demon3 (grep { $_ ne $demon1 && $_ ne $demon2 } @demons) {
+                    $check_fusion->($demon1, $demon2, $demon3);
+                }
             }
         }
     }
