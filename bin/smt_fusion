@@ -53,3 +53,29 @@ sub min_level_for {
     print "Level $min_level:\n";
     print join("\n", @min_level_fusions), "\n";
 }
+
+sub party_fusion {
+    my @demons = @_;
+    my $seen = _party_fusion_recursive_fuse({}, map { _demon($_) } @demons);
+    print join("\n", map { _demon($_) } sort { $a cmp $b } keys %$seen), "\n";
+}
+sub _party_fusion_recursive_fuse {
+    my ($seen, @demons) = @_;
+
+    $seen->{$_} = 1 for map { $_->name } @demons;
+
+    if (@demons > 1) {
+        for my $demon1 (@demons) {
+            for my $demon2 (grep { $_ ne $demon1 } @demons) {
+                my $fused = _fuse($demon1, $demon2);
+                next unless $fused;
+                my @new_party = (
+                    $fused, grep { $_ ne $demon1 && $_ ne $demon2 } @demons
+                );
+                _party_fusion_recursive_fuse($seen, @new_party);
+            }
+        }
+    }
+
+    return $seen;
+}
