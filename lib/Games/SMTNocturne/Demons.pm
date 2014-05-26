@@ -6,6 +6,7 @@ use Exporter 'import';
 our @EXPORT_OK = qw(demon fuse fusions_for);
 
 use Games::SMTNocturne::Demons::Demon;
+use Games::SMTNocturne::Demons::Fusion;
 use Games::SMTNocturne::Demons::FusionChart;
 
 sub demon {
@@ -134,6 +135,8 @@ sub fusions_for {
         elsif ($special->{demon1}) {
             if ($special->{target}) {
                 my @target_fusions = map {
+                    $_->raw
+                } map {
                     fusions_for($_, $options)
                 } @{ $special->{target} };
                 push @special_fusions, grep {
@@ -149,6 +152,8 @@ sub fusions_for {
         else {
             if ($special->{target}) {
                 push @special_fusions, map {
+                    $_->raw
+                } map {
                     fusions_for($_, $options)
                 } @{ $special->{target} };
             }
@@ -171,12 +176,13 @@ sub fusions_for {
         if ($special->{kagatsuchi}) {
             @special_fusions = map {
                 my $phase = $_;
-                map { [ @$_, "<kagatsuchi $phase>" ] } @special_fusions
+                map { [ @$_, $phase ] } @special_fusions
             } @{ $special->{kagatsuchi} };
         }
     }
 
-    return @fusions, @special_fusions;
+    return map { Games::SMTNocturne::Demons::Fusion->new(@$_) }
+               @fusions, @special_fusions;
 }
 
 sub _try_special_fusion {
