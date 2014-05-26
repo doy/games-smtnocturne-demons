@@ -3,10 +3,16 @@ use strict;
 use warnings;
 
 use Exporter 'import';
-our @EXPORT_OK = qw(fuse fusions_for);
+our @EXPORT_OK = qw(demon fuse fusions_for);
 
 use Games::SMTNocturne::Demons::Demon;
 use Games::SMTNocturne::Demons::FusionChart;
+
+sub demon {
+    my ($demon) = @_;
+
+    return Games::SMTNocturne::Demons::Demon->from_name($demon);
+}
 
 sub fuse {
     my ($demon1, $demon2, $options) = @_;
