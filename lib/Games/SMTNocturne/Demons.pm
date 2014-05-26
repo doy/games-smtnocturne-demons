@@ -112,7 +112,7 @@ sub fusions_for {
             $special->{$key} = [
                 grep { $_->level <= $options->{max_level} }
                      @{ $special->{$key} }
-            ] if defined $options->{max_level};
+            ] if $key ne 'target' && defined $options->{max_level};
         }
 
         if ($special->{demon3}) {
