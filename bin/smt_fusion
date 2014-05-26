@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+use Getopt::Long;
 use List::Util 'max';
 
 use Games::SMTNocturne::Demons;
@@ -11,6 +12,17 @@ sub _fuse        { Games::SMTNocturne::Demons::fuse(@_) }
 sub _fusions_for { Games::SMTNocturne::Demons::fusions_for(@_) }
 
 my $command = shift @ARGV;
+
+my ($max_level, $bosses);
+GetOptions(
+    "max_level=i" => \$max_level,
+    "boss=s@"     => \$bosses,
+) or die "couldn't parse options";
+
+my $options = {
+    max_level => $max_level,
+    bosses    => $bosses,
+};
 
 if ($command !~ /^_/ && defined &$command) {
     { no strict 'refs'; &{ $command }(@ARGV) }
@@ -26,18 +38,18 @@ sub demon {
 
 sub fuse {
     my ($demon1, $demon2) = @_;
-    print _fuse($demon1, $demon2), "\n";
+    print _fuse($demon1, $demon2, $options), "\n";
 }
 
 sub fusions_for {
     my ($demon) = @_;
-    print join("\n", _fusions_for($demon)), "\n";
+    print join("\n", _fusions_for($demon, $options)), "\n";
 }
 
 sub min_level_for {
     my ($demon) = @_;
 
-    my @fusions = _fusions_for($demon);
+    my @fusions = _fusions_for($demon, $options);
     my $min_level = 99;
     my @min_level_fusions;
     for my $fusion (@fusions) {
@@ -67,8 +79,9 @@ sub _party_fusion_recursive_fuse {
     if (@demons > 1) {
         for my $demon1 (@demons) {
             for my $demon2 (grep { $_ ne $demon1 } @demons) {
-                my $fused = _fuse($demon1, $demon2);
+                my $fused = _fuse($demon1, $demon2, $options);
                 next unless $fused;
+                next if defined $max_level && $fused->level > $max_level;
                 my @new_party = (
                     $fused, grep { $_ ne $demon1 && $_ ne $demon2 } @demons
                 );
