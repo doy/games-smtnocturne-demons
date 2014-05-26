@@ -49,8 +49,8 @@ sub demons_of_type {
 }
 
 sub fuse {
-    my ($demon1, $demon2) = @_;
-    print _fuse($demon1, $demon2, $options), "\n";
+    my ($demon1, $demon2, $sacrifice) = @_;
+    print _fuse($demon1, $demon2, { sacrifice => $sacrifice, %$options }), "\n";
 }
 
 sub fusions_for {
