@@ -58,7 +58,7 @@ sub fuse {
 }
 
 sub fusions_for {
-    my ($demon) = @_;
+    my ($demon, $options) = @_;
 
     $demon = Games::SMTNocturne::Demons::Demon->from_name($demon)
         unless ref($demon);
@@ -68,7 +68,11 @@ sub fusions_for {
     for my $types (Games::SMTNocturne::Demons::FusionChart::unfuse($demon->type)) {
         my ($type1, $type2) = @$types;
         for my $demon1 (Games::SMTNocturne::Demons::Demon->from_type($type1)) {
+            next if defined $options->{level}
+                 && $options->{level} < $demon1->level;
             for my $demon2 (Games::SMTNocturne::Demons::Demon->from_type($type2)) {
+                next if defined $options->{level}
+                     && $options->{level} < $demon2->level;
                 push @fusions, [ $demon1, $demon2 ]
                     if (fuse($demon1, $demon2) || '') eq $demon;
             }
@@ -95,6 +99,9 @@ sub fusions_for {
                     } @types
                 ];
             }
+            $special->{$key} = [
+                grep { $_->level <= $options->{level} } @{ $special->{$key} }
+            ] if defined $options->{level};
         }
 
         if ($special->{demon3}) {
@@ -118,7 +125,7 @@ sub fusions_for {
         elsif ($special->{demon1}) {
             if ($special->{target}) {
                 my @target_fusions = map {
-                    fusions_for($_)
+                    fusions_for($_, $options)
                 } @{ $special->{target} };
                 push @special_fusions, grep {
                     my $fusion = $_;
@@ -133,7 +140,7 @@ sub fusions_for {
         else {
             if ($special->{target}) {
                 push @special_fusions, map {
-                    fusions_for($_)
+                    fusions_for($_, $options)
                 } @{ $special->{target} };
             }
             else {
