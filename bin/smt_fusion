@@ -78,7 +78,9 @@ sub party_fusion {
         $deathstones,
         map { _demon($_) } @demons
     );
-    print join("\n", map { _demon($_) } sort { $a cmp $b } keys %$seen), "\n";
+    print join("\n",
+        sort { $a->level <=> $b->level } map { _demon($_) } keys %$seen
+    ), "\n";
 }
 sub _party_fusion_recursive_fuse {
     my ($seen, $deathstones, @demons) = @_;
