@@ -84,7 +84,7 @@ sub fusions_for {
                 next if defined $options->{max_level}
                      && $options->{max_level} < $demon2->level;
                 push @fusions, [ $demon1, $demon2 ]
-                    if (fuse($demon1, $demon2) || '') eq $demon;
+                    if (fuse($demon1, $demon2, $options) || '') eq $demon;
             }
         }
     }
