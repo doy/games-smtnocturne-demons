@@ -78,11 +78,11 @@ sub fusions_for {
     for my $types (Games::SMTNocturne::Demons::FusionChart::unfuse($demon->type)) {
         my ($type1, $type2) = @$types;
         for my $demon1 (Games::SMTNocturne::Demons::Demon->from_type($type1)) {
-            next if defined $options->{level}
-                 && $options->{level} < $demon1->level;
+            next if defined $options->{max_level}
+                 && $options->{max_level} < $demon1->level;
             for my $demon2 (Games::SMTNocturne::Demons::Demon->from_type($type2)) {
-                next if defined $options->{level}
-                     && $options->{level} < $demon2->level;
+                next if defined $options->{max_level}
+                     && $options->{max_level} < $demon2->level;
                 push @fusions, [ $demon1, $demon2 ]
                     if (fuse($demon1, $demon2) || '') eq $demon;
             }
@@ -110,8 +110,9 @@ sub fusions_for {
                 ];
             }
             $special->{$key} = [
-                grep { $_->level <= $options->{level} } @{ $special->{$key} }
-            ] if defined $options->{level};
+                grep { $_->level <= $options->{max_level} }
+                     @{ $special->{$key} }
+            ] if defined $options->{max_level};
         }
 
         if ($special->{demon3}) {
