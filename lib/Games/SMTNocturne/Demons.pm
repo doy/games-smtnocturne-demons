@@ -175,10 +175,7 @@ sub fusions_for {
         }
 
         if ($special->{kagatsuchi}) {
-            @special_fusions = map {
-                my $phase = $_;
-                map { [ @$_, $phase ] } @special_fusions
-            } @{ $special->{kagatsuchi} };
+            push @$_, $special->{kagatsuchi} for @special_fusions;
         }
     }
 

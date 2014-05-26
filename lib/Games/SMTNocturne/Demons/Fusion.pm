@@ -68,7 +68,8 @@ sub to_string {
         if $self->sacrifice;
     $str .= " while sacrificing a deathstone"
         if $self->deathstone;
-    $str .= " when Kagutsuchi is at phase " . $self->kagatsuchi . "/8"
+    $str .= " when Kagutsuchi is at phase "
+          . join(", ", map { "$_/8" } @{ $self->kagatsuchi })
         if defined $self->kagatsuchi;
 
     return $str;
