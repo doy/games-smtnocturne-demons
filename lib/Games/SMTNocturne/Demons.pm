@@ -19,14 +19,11 @@ sub fuse {
     my ($demon1, $demon2, $options) = @_;
     $options = { %{ $options || {} } };
 
-    $demon1 = Games::SMTNocturne::Demons::Demon->from_name($demon1)
-        unless ref($demon1);
-    $demon2 = Games::SMTNocturne::Demons::Demon->from_name($demon2)
-        unless ref($demon2);
+    $demon1 = demon($demon1) unless ref($demon1);
+    $demon2 = demon($demon2) unless ref($demon2);
     if ($options->{sacrifice}) {
-        $options->{sacrifice} = Games::SMTNocturne::Demons::Demon->from_name(
-            $options->{sacrifice}
-        ) unless ref($options->{sacrifice});
+        $options->{sacrifice} = demon($options->{sacrifice})
+            unless ref($options->{sacrifice});
     }
 
     if (!$options->{basic}) {
@@ -70,8 +67,7 @@ sub fuse {
 sub fusions_for {
     my ($demon, $options) = @_;
 
-    $demon = Games::SMTNocturne::Demons::Demon->from_name($demon)
-        unless ref($demon);
+    $demon = demon($demon) unless ref($demon);
 
     my @fusions;
     my %seen;
@@ -97,9 +93,7 @@ sub fusions_for {
         for my $key (qw(demon1 demon2 demon3 target sacrifice)) {
             next unless $special->{$key};
             if (my $name = $special->{$key}{name}) {
-                $special->{$key} = [
-                    Games::SMTNocturne::Demons::Demon->from_name($name)
-                ];
+                $special->{$key} = [ demon($name) ];
             }
             elsif (my $type = $special->{$key}{type}) {
                 my @types = ref($type) ? (@$type) : ($type);
@@ -194,7 +188,7 @@ sub _try_special_fusion {
     );
     return unless $fused;
 
-    my $demon = Games::SMTNocturne::Demons::Demon->from_name($fused);
+    my $demon = demon($fused);
 
     my %bosses = map { $_ => 1 } @{ $options->{bosses} || [] };
     return if $demon->boss && !$bosses{$demon->name};
@@ -209,7 +203,7 @@ sub _fuse_mitama {
         $element1->name, $element2->name
     );
     return unless $mitama;
-    return Games::SMTNocturne::Demons::Demon->from_name($mitama);
+    return demon($mitama);
 }
 
 sub _element_fusion {
@@ -241,7 +235,7 @@ sub _fuse_element {
         $demon1->type
     );
     return unless $element;
-    return Games::SMTNocturne::Demons::Demon->from_name($element);
+    return demon($element);
 }
 
 sub _normal_fusion {
