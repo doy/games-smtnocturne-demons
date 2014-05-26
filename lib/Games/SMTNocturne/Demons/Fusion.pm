@@ -6,7 +6,7 @@ use overload '""' => 'to_string';
 use Games::SMTNocturne::Demons::Demon;
 
 sub new {
-    my ($class, $demon1, $demon2, $sacrifice, $kagatsuchi) = @_;
+    my ($class, $demon1, $demon2, $options, $sacrifice, $kagatsuchi) = @_;
 
     my $attrs = {};
 
@@ -28,10 +28,12 @@ sub new {
     }
 
     $attrs->{kagatsuchi} = $kagatsuchi;
+    $attrs->{options} = $options || {};
 
     return bless $attrs, $class;
 }
 
+sub options    { $_[0]->{options} }
 sub demons     { $_[0]->{demons} }
 sub sacrifice  { $_[0]->{sacrifice} }
 sub deathstone { $_[0]->{deathstone} }
@@ -42,6 +44,7 @@ sub result {
     $self->{result} ||= Games::SMTNocturne::Demons::fuse(
         @{ $self->demons },
         {
+            %{ $self->options },
             sacrifice  => $self->sacrifice,
             deathstone => $self->deathstone,
             kagatsuchi => @{ $self->kagatsuchi || [] }[0],
