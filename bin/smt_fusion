@@ -20,7 +20,8 @@ GetOptions(
     "kagatsuchi=i"  => \$kagatsuchi,
     "boss=s@"       => \$bosses,
 ) or die "couldn't parse options";
-$bosses = [ split(/,/, join(',', @$bosses)) ];
+$bosses = [ split(/,/, join(',', @$bosses)) ]
+    if $bosses;
 
 my $options = {
     max_level  => $max_level,
