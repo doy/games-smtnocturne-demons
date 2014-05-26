@@ -83,8 +83,11 @@ sub party_fusion {
         sort { $a->level <=> $b->level } map { _demon($_) } keys %$seen
     ), "\n";
 }
+my $SEEN = {};
 sub _party_fusion_recursive_fuse {
     my ($seen, $deathstones, @demons) = @_;
+
+    return $seen if $SEEN->{join(';', @demons)}++;
 
     $seen->{$_} = 1 for map { $_->name } @demons;
 
