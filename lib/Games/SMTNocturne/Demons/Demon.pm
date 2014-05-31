@@ -496,7 +496,7 @@ __DATA__
       "level" : "19",
       "type" : "Yoma"
    },
-   "Koumoko" : {
+   "Koumoku" : {
       "fusion_type" : "normal",
       "level" : "33",
       "type" : "Kishin"
@@ -713,7 +713,7 @@ __DATA__
    },
    "Pazuzu" : {
       "fusion_type" : "normal",
-      "level" : "35",
+      "level" : "45",
       "type" : "Vile"
    },
    "Phantom" : {
@@ -999,7 +999,7 @@ __DATA__
       "level" : "52",
       "type" : "Fiend"
    },
-   "Will O' Wisp" : {
+   "Will o' Wisp" : {
       "fusion_type" : "normal",
       "level" : "1",
       "type" : "Foul"
