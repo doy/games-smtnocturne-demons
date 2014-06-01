@@ -163,7 +163,7 @@ sub _check_fusion {
             ? ($sacrifice)
             : ()),
         ($fused->type eq 'Fiend'
-            ? ('<deathstone>', $phase)
+            ? ('<deathstone>', [$phase])
             : ()),
     );
     if (my $old_fusion = $new_current->{$fused->name}) {
