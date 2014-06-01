@@ -181,7 +181,7 @@ __DATA__
       "level" : "95",
       "type" : "Tyrant"
    },
-   "Beji Weng" : {
+   "Beiji-Weng" : {
       "fusion_type" : "normal",
       "level" : "61",
       "type" : "Fury"
