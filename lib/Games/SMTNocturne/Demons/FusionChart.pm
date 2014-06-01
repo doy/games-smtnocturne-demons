@@ -116,7 +116,8 @@ sub special_fusion {
 
         if (my $target = $conditions->{target}) {
             if (my $type = $target->{type}) {
-                next unless fuse($demon1->type, $demon2->type) eq $type;
+                my $fused_type = fuse($demon1->type, $demon2->type);
+                next unless $fused_type && $fused_type eq $type;
             }
             elsif (my $name = $target->{name}) {
                 require Games::SMTNocturne::Demons;
