@@ -34,6 +34,10 @@ sub fuse {
 
     if (!$options->{basic}) {
         if (my $demon = _try_special_fusion($demon1, $demon2, $options)) {
+            # XXX this is the wrong place for this, but not sure how to do
+            # it better
+            return if $demon->type eq 'Fiend'
+                   && ($demon1->type eq 'Fiend' || $demon2->type eq 'Fiend');
             return $demon;
         }
         else {
@@ -158,11 +162,17 @@ sub fusions_for {
         }
         else {
             if ($special->{target}) {
-                push @special_fusions, map {
+                my @new_special = map {
                     $_->raw
                 } map {
                     fusions_for($_, $options)
                 } @{ $special->{target} };
+                if ($demon->type eq 'Fiend') {
+                    @new_special = grep {
+                        $_->[1]->type ne 'Fiend' && $_->[2]->type ne 'Fiend'
+                    } @new_special;
+                }
+                push @special_fusions, @new_special;
             }
             else {
                 die "???";
