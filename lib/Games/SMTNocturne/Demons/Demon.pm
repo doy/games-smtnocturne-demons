@@ -29,6 +29,11 @@ sub from_name {
     return $DEMONS_BY_NAME{$name};
 }
 
+sub all_demons {
+    my $class = shift;
+    map { $class->from_name($_) } keys %DEMONS_BY_NAME;
+}
+
 sub from_fusion_stats {
     my ($class, $options) = @_;
 
