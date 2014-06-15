@@ -449,7 +449,7 @@ __DATA__
       "level" : "44",
       "type" : "Yoma"
    },
-   "Jiroku" : {
+   "Jikoku" : {
       "fusion_type" : "normal",
       "level" : "52",
       "type" : "Kishin"
@@ -558,6 +558,7 @@ __DATA__
       "type" : "Dragon"
    },
    "Mada" : {
+      "boss": true,
       "fusion_type" : "normal",
       "level" : "83",
       "type" : "Vile"
