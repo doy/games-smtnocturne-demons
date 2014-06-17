@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Exporter 'import';
-our @EXPORT_OK = qw(demon demons_of_type fuse fusions_for);
+our @EXPORT_OK = qw(demon demons_of_type all_demons fuse fusions_for);
 
 use Games::SMTNocturne::Demons::Demon;
 use Games::SMTNocturne::Demons::Fusion;
@@ -19,6 +19,10 @@ sub demons_of_type {
     my ($type) = @_;
 
     return Games::SMTNocturne::Demons::Demon->from_type($type);
+}
+
+sub all_demons {
+    return Games::SMTNocturne::Demons::Demon->all_demons;
 }
 
 sub fuse {
