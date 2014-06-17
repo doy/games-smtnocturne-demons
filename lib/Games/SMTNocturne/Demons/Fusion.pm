@@ -136,4 +136,13 @@ sub to_string {
     return $str;
 }
 
+=for Pod::Coverage
+  new
+  all_demons
+  options
+  raw
+  to_string
+
+=cut
+
 1;

@@ -134,6 +134,15 @@ sub to_string {
     return '<' . $self->type . ' ' . $self->name . ' (' . $self->level . ')>'
 }
 
+=for Pod::Coverage
+  all_demons
+  from_fusion_stats
+  from_name
+  from_type
+  to_string
+
+=cut
+
 1;
 
 __DATA__

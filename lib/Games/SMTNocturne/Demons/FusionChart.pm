@@ -157,6 +157,17 @@ sub special_fusion_for {
     return { %{ $SPECIAL{$demon} } };
 }
 
+=for Pod::Coverage
+  element_fusion
+  fuse
+  fuse_element
+  fuse_mitama
+  special_fusion
+  special_fusion_for
+  unfuse
+
+=cut
+
 1;
 
 __DATA__
