@@ -9,6 +9,7 @@ use Games::SMTNocturne::Demons;
 
 sub _demon          { Games::SMTNocturne::Demons::demon(@_) }
 sub _demons_of_type { Games::SMTNocturne::Demons::demons_of_type(@_) }
+sub _all_demons     { Games::SMTNocturne::Demons::all_demons(@_) }
 sub _fuse           { Games::SMTNocturne::Demons::fuse(@_) }
 sub _fusions_for    { Games::SMTNocturne::Demons::fusions_for(@_) }
 
@@ -46,6 +47,10 @@ sub demon {
 sub demons_of_type {
     my ($type) = @_;
     print join("\n", _demons_of_type($type)), "\n";
+}
+
+sub all_demons {
+    print join("\n", _all_demons), "\n";
 }
 
 sub fuse {
