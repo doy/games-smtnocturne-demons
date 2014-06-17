@@ -1,6 +1,7 @@
 package Games::SMTNocturne::Demons;
 use strict;
 use warnings;
+# ABSTRACT: look up information about demon fusion in Shin Megami Tensei: Nocturne
 
 use Exporter 'import';
 our @EXPORT_OK = qw(demon demons_of_type all_demons fuse fusions_for);
@@ -9,11 +10,49 @@ use Games::SMTNocturne::Demons::Demon;
 use Games::SMTNocturne::Demons::Fusion;
 use Games::SMTNocturne::Demons::FusionChart;
 
+=head1 SYNOPSIS
+
+  use Games::SMTNocturne::Demons qw(fuse fusions_for);
+
+  say fuse('Rangda', 'Barong');
+  # <Fury Shiva (95)>
+
+  say for fusions_for('Shiva');
+  # Fuse <Mitama Ara Mitama (25)> with <Fury Shiva (95)> resulting in <Fury Shiva (95)>
+  # Fuse <Mitama Nigi Mitama (29)> with <Fury Shiva (95)> resulting in <Fury Shiva (95)>
+  # Fuse <Mitama Kusi Mitama (32)> with <Fury Shiva (95)> resulting in <Fury Shiva (95)>
+  # Fuse <Mitama Saki Mitama (35)> with <Fury Shiva (95)> resulting in <Fury Shiva (95)>
+  # Fuse <Avatar Barong (60)> with <Femme Rangda (72)> resulting in <Fury Shiva (95)>
+
+=head1 DESCRIPTION
+
+This module implements various routines for modeling demon fusion in the
+PlayStation 2 game Shin Megami Tensei: Nocturne. Note that it also comes with a
+command line script called C<smt> which implements some more useful commands on
+top of the basic functionality given here; see its documentation for more
+information. All of the functions listed below are exported on request.
+
+=cut
+
+=func demon($name)
+
+Returns an instance of L<Games::SMTNocturne::Demons::Demon> for the named
+demon. Throws an exception if no such demon exists.
+
+=cut
+
 sub demon {
     my ($demon) = @_;
 
     return Games::SMTNocturne::Demons::Demon->from_name($demon);
 }
+
+=func demons_of_type($name)
+
+Returns a list of all demons of a given type. Throws an exception if no such
+type exists.
+
+=cut
 
 sub demons_of_type {
     my ($type) = @_;
@@ -21,9 +60,48 @@ sub demons_of_type {
     return Games::SMTNocturne::Demons::Demon->from_type($type);
 }
 
+=func all_demons
+
+Returns a list of all demons in the game.
+
+=cut
+
 sub all_demons {
     return Games::SMTNocturne::Demons::Demon->all_demons;
 }
+
+=func fuse($demon1, $demon2, $options)
+
+Returns the demon that will be created when fusing C<$demon1> with C<$demon2>.
+Possible options (all optional) are:
+
+=over 4
+
+=item sacrifice
+
+A third demon to be sacrificed (at full Kagutsuchi).
+
+=item max_level
+
+The level of your main character (so fusions that would result in a demon of a
+higher level than this will be ignored).
+
+=item bosses
+
+An arrayref of boss demons which have been defeated. Any boss demon not listed
+here will be unavailable for fusion.
+
+=item deathstone
+
+Whether or not you own any deathstones.
+
+=item kagutsuchi
+
+The current Kagutsuchi phase.
+
+=back
+
+=cut
 
 sub fuse {
     my ($demon1, $demon2, $options) = @_;
@@ -76,6 +154,27 @@ sub fuse {
         return _normal_fusion($demon1, $demon2, $options);
     }
 }
+
+=func fusions_for($demon, $options)
+
+Returns a list of all possible demons fusions which can result in the given
+demon. Possible options (all optional) are:
+
+=over 4
+
+=item max_level
+
+The level of your main character (so fusions that would result in a demon of a
+higher level than this will be ignored).
+
+=item bosses
+
+An arrayref of boss demons which have been defeated. Any boss demon not listed
+here will be unavailable for fusion.
+
+=back
+
+=cut
 
 sub fusions_for {
     my ($demon, $options) = @_;
@@ -276,5 +375,54 @@ sub _normal_fusion {
         %{ $options || {} },
     });
 }
+
+=head1 BUGS
+
+Probably a lot, since I just wrote this on the fly as I was playing. It was
+reasonably accurate enough to get me through the game, but it probably needs a
+lot more cleaning around the edges. Failing tests welcome!
+
+One notable omission (that I would be interested in fixing) is that this module
+does not handle cursed fusions (mostly since taking advantage of cursed fusions
+is so difficult in the game to begin with).
+
+Please report any bugs to GitHub Issues at
+L<https://github.com/doy/games-smtnocturne-demons/issues>.
+
+=head1 SEE ALSO
+
+L<http://megamitensei.wikia.com/wiki/Shin_Megami_Tensei_III:_Nocturne>
+
+L<http://www.gamefaqs.com/ps2/582958-shin-megami-tensei-nocturne/faqs/35110>
+
+=head1 SUPPORT
+
+You can find this documentation for this module with the perldoc command.
+
+    perldoc Games::SMTNocturne::Demons
+
+You can also look for information at:
+
+=over 4
+
+=item * MetaCPAN
+
+L<https://metacpan.org/release/Games-SMTNocturne-Demons>
+
+=item * Github
+
+L<https://github.com/doy/games-smtnocturne-demons>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Games-SMTNocturne-Demons>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Games-SMTNocturne-Demons>
+
+=back
+
+=cut
 
 1;

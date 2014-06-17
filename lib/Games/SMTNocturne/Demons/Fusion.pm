@@ -2,8 +2,29 @@ package Games::SMTNocturne::Demons::Fusion;
 use strict;
 use warnings;
 use overload '""' => 'to_string';
+# ABSTRACT: represents the results of a fusion
 
 use Games::SMTNocturne::Demons::Demon;
+
+=head1 SYNOPSIS
+
+  use Games::SMTNocturne::Demons 'fusions_for';
+
+  my @fusions = fusions_for('Jack Frost');
+
+  say $fusions[0]->demons->[0]; # <Divine Angel (11)>
+  say $fusions[0]->demons->[1]; # <Foul Will o' Wisp (1)>
+  say $fusions[0]->result;      # <Fairy Jack Frost (7)>
+  say $fusions[0];              # Fuse <Divine Angel (11)> with <Foul Will o' Wisp (1)> resulting in <Fairy Jack Frost (7)>
+
+=head1 DESCRIPTION
+
+This class represents the result of a demon fusion which was calculated by the
+C<fusions_for> function in L<Games::SMTNocturne::Demons>. It includes various
+accessor methods to get information about the generated fusion, as well as a
+stringification overload to produce a readable summary.
+
+=cut
 
 sub new {
     my ($class, $options, $demon1, $demon2, $sacrifice, $kagutsuchi) = @_;
@@ -32,6 +53,29 @@ sub new {
 
     return bless $attrs, $class;
 }
+
+=method demons
+
+An arrayref containing the two demons to be fused.
+
+=method sacrifice
+
+An optional third demon to be sacrificed (at full Kagutsuchi).
+
+=method deathstone
+
+True if this fusion requires a deathstone.
+
+=method kagutsuchi
+
+An optional arrayref containing the Kagutsuchi phases during which this fusion
+may take place.
+
+=method result
+
+The demon that will be created by the fusion.
+
+=cut
 
 sub options    { $_[0]->{options} }
 sub demons     { $_[0]->{demons} }

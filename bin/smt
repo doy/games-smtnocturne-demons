@@ -1,11 +1,128 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+# PODNAME: smt
+# ABSTRACT: command line interface to Games::SMTNocturne::Demons
 
 use Getopt::Long;
 use List::Util 'max', 'sum0';
 
 use Games::SMTNocturne::Demons;
+
+=head1 SYNOPSIS
+
+  smt <command> [args...]
+
+  Possible commands:
+
+    demon <name>
+
+    demons_of_type <type>
+
+    all_demons
+
+    fuse [--boss <boss1>[,<boss2>...] [--deathstones <n>]
+         [--kagutsuchi <phase>] <demon1> <demon2>
+
+    fusions_for [--boss <boss1>[,<boss2>...] [--max_level <n>] <demon>
+
+    min_level_for [--boss <boss1>[,<boss2>...] [--max_level <n>] <demon>
+
+    party_fusion [--boss <boss1>[,<boss2>...] [--max_level <n>]
+                 [--deathstones <n>] <demon1> [<demon2> ...]
+
+=head1 DESCRIPTION
+
+This program exposes the functionality from L<Games::SMTNocturne::Demons> on
+the command line, as well as adding some useful functionality on top of it.
+
+=head1 COMMANDS
+
+=head2 demon
+
+  $ smt demon Pixie
+  <Fairy Pixie (2)>
+
+Displays the type, name, and base level for the given demon.
+
+=head2 demons_of_type
+
+  $ smt demons_of_type Wilder
+  <Wilder Zhen (6)>
+  <Wilder Bicorn (15)>
+  <Wilder Raiju (25)>
+  <Wilder Nue (31)>
+  <Wilder Mothman (43)>
+  <Wilder Hresvelgr (75)>
+
+Displays the type, name, and base level for all demons of a given type.
+
+=head2 all_demons
+
+  $ smt all_demons
+  <Foul Will o' Wisp (1)>
+  <Fairy Pixie (2)>
+  <Jirae Kodama (3)>
+  <Haunt Preta (4)>
+  <Brute Shikigami (4)>
+  <Jirae Hua Po (5)>
+  <Foul Slime (6)>
+  <Wilder Zhen (6)>
+  <Femme Datsue-Ba (7)>
+  <Element Erthys (7)>
+  [...]
+
+Displays the type, name, and base level for all demons.
+
+=head2 fuse
+
+  $ smt fuse Zhen Lilim
+  <Beast Inugami (13)>
+
+Displays the demon that would result from fusing C<demon1> with C<demon2>.
+
+=head2 fusions_for
+
+  $ smt fusions_for 'Jack Frost'
+  Fuse <Brute Shikigami (4)> with <Wilder Zhen (6)> resulting in <Fairy Jack Frost (7)>
+  Fuse <Jirae Kodama (3)> with <Brute Shikigami (4)> resulting in <Fairy Jack Frost (7)>
+  Fuse <Jirae Hua Po (5)> with <Brute Shikigami (4)> resulting in <Fairy Jack Frost (7)>
+  Fuse <Mitama Ara Mitama (25)> with <Fairy Jack Frost (7)> resulting in <Fairy Jack Frost (7)>
+  [...]
+
+Displays all possible ways to create C<demon> via fusion.
+
+=head2 min_level_for
+
+  $ smt min_level_for 'Jack Frost'
+  Level 4:
+  Fuse <Jirae Kodama (3)> with <Brute Shikigami (4)> resulting in <Fairy Jack Frost (7)>
+
+Calculates the "easiest" way to fuse a given demon, where "easiest" is defined
+as requiring the lowest leveled demons possible.
+
+=head2 party_fusion
+
+  $ smt party_fusion Pixie 'Hua Po' Zhen
+  <Fairy Pixie (2)>
+  <Jirae Hua Po (5)>
+  <Wilder Zhen (6)>
+  <Yoma Apsaras (8)>:
+    Fuse <Jirae Hua Po (5)> with <Fairy Pixie (2)> resulting in <Yoma Apsaras (8)>
+  <Beast Inugami (13)>:
+    Fuse <Jirae Hua Po (5)> with <Fairy Pixie (2)> resulting in <Yoma Apsaras (8)>
+    Fuse <Yoma Apsaras (8)> with <Wilder Zhen (6)> resulting in <Beast Inugami (13)>
+  <Night Fomor (18)>:
+    Fuse <Jirae Hua Po (5)> with <Wilder Zhen (6)> resulting in <Brute Momunofu (20)>
+    Fuse <Brute Momunofu (20)> with <Fairy Pixie (2)> resulting in <Night Fomor (18)>
+  <Brute Momunofu (20)>:
+    Fuse <Jirae Hua Po (5)> with <Wilder Zhen (6)> resulting in <Brute Momunofu (20)>
+
+
+Calculates all possible demons that can be fused from the given party, as well
+as an example path to take in order to create that demon.
+
+=cut
 
 sub _demon          { Games::SMTNocturne::Demons::demon(@_) }
 sub _demons_of_type { Games::SMTNocturne::Demons::demons_of_type(@_) }

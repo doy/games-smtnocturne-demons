@@ -2,8 +2,28 @@ package Games::SMTNocturne::Demons::Demon;
 use strict;
 use warnings;
 use overload '""' => 'to_string', fallback => 1;
+# ABSTRACT: an individual demon
 
 use JSON::PP;
+
+=head1 SYNOPSIS
+
+  use Games::SMTNocturne::Demons 'demon';
+
+  my $pixie = demon('Pixie');
+  say $pixie->name  # 'Pixie'
+  say $pixie->level # 2
+  say $pixie->type  # 'Fairy'
+
+=head1 DESCRIPTION
+
+This class represents an individual demon. You typically create instances of
+this class via the functions in the L<Games::SMTNocturne::Demons> package, and
+you can then look up various data using the accessors here. This class also
+includes a stringification overload to display the information about the demon
+in a readable form.
+
+=cut
 
 my %DEMONS_BY_NAME = %{ decode_json(do { local $/; <DATA> }) };
 for my $name (keys %DEMONS_BY_NAME) {
@@ -74,6 +94,33 @@ sub from_type {
 
     return @{ $DEMONS_BY_TYPE{$type} };
 }
+
+=method boss
+
+True if the demon is a boss (meaning that fusing it will not be possible until
+it has been defeated).
+
+=method fusion_type
+
+How this demon can be created. Can be C<normal> for demons that can be fused
+normally, C<evolve> for demons that must be evolved, C<special> for demons
+that require special fusions, and C<deathstone> for demons that require a
+deathstone in order to fuse.
+
+=method level
+
+The base level of the demon. This level is what is used in the fusion process,
+regardless of the experience level of the actual demon in your party.
+
+=method name
+
+The name of the demon.
+
+=method type
+
+The type of the demon (C<Fairy>, C<Yoma>, etc).
+
+=cut
 
 sub boss        { $_[0]->{boss} }
 sub fusion_type { $_[0]->{fusion_type} }
