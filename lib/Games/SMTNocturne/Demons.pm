@@ -1,4 +1,5 @@
 package Games::SMTNocturne::Demons;
+
 use strict;
 use warnings;
 # ABSTRACT: look up information about demon fusion in Shin Megami Tensei: Nocturne

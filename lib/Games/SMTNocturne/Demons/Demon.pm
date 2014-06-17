@@ -1,4 +1,5 @@
 package Games::SMTNocturne::Demons::Demon;
+
 use strict;
 use warnings;
 use overload '""' => 'to_string', fallback => 1;

@@ -1,4 +1,5 @@
 package Games::SMTNocturne::Demons::FusionChart;
+
 use strict;
 use warnings;
 

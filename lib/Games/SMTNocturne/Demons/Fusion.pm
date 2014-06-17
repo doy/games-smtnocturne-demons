@@ -1,4 +1,5 @@
 package Games::SMTNocturne::Demons::Fusion;
+
 use strict;
 use warnings;
 use overload '""' => 'to_string';
