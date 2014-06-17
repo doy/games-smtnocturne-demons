@@ -6,7 +6,7 @@ use overload '""' => 'to_string';
 use Games::SMTNocturne::Demons::Demon;
 
 sub new {
-    my ($class, $options, $demon1, $demon2, $sacrifice, $kagatsuchi) = @_;
+    my ($class, $options, $demon1, $demon2, $sacrifice, $kagutsuchi) = @_;
 
     my $attrs = {};
 
@@ -27,7 +27,7 @@ sub new {
         }
     }
 
-    $attrs->{kagatsuchi} = $kagatsuchi;
+    $attrs->{kagutsuchi} = $kagutsuchi;
     $attrs->{options} = $options || {};
 
     return bless $attrs, $class;
@@ -37,7 +37,7 @@ sub options    { $_[0]->{options} }
 sub demons     { $_[0]->{demons} }
 sub sacrifice  { $_[0]->{sacrifice} }
 sub deathstone { $_[0]->{deathstone} }
-sub kagatsuchi { $_[0]->{kagatsuchi} }
+sub kagutsuchi { $_[0]->{kagutsuchi} }
 sub result {
     my $self = shift;
     require Games::SMTNocturne::Demons;
@@ -47,7 +47,7 @@ sub result {
             %{ $self->options },
             sacrifice  => $self->sacrifice,
             deathstone => $self->deathstone,
-            kagatsuchi => @{ $self->kagatsuchi || [] }[0],
+            kagutsuchi => @{ $self->kagutsuchi || [] }[0],
         }
     );
 }
@@ -68,8 +68,8 @@ sub raw {
         if $self->sacrifice;
     push @$array, "<deathstone>"
         if $self->deathstone;
-    push @$array, $self->kagatsuchi
-        if defined $self->kagatsuchi;
+    push @$array, $self->kagutsuchi
+        if defined $self->kagutsuchi;
     return $array;
 }
 
@@ -84,8 +84,8 @@ sub to_string {
     $str .= " while sacrificing a deathstone"
         if $self->deathstone;
     $str .= " when Kagutsuchi is at phase "
-          . join(", ", map { "$_/8" } @{ $self->kagatsuchi })
-        if defined $self->kagatsuchi;
+          . join(", ", map { "$_/8" } @{ $self->kagutsuchi })
+        if defined $self->kagutsuchi;
     $str .= " resulting in " . $self->result;
 
     return $str;

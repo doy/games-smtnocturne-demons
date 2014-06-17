@@ -54,31 +54,31 @@ fusion_is('Shadow', 'Aeros', 'Sakahagi');
 set_fusion_options({ bosses => ['Sakahagi'] });
 fusion_is('Shadow', 'Flaemis', 'Sakahagi');
 
-set_fusion_options({ bosses => ['Matador'], deathstone => 1, kagatsuchi => 2 });
+set_fusion_options({ bosses => ['Matador'], deathstone => 1, kagutsuchi => 2 });
 fusion_is('Yaka', 'Incubus', 'Matador');
 
-set_fusion_options({ bosses => ['Daisoujou'], deathstone => 1, kagatsuchi => 7 });
+set_fusion_options({ bosses => ['Daisoujou'], deathstone => 1, kagutsuchi => 7 });
 fusion_is('Yurlungur', 'Mothman', 'Daisoujou');
 
-set_fusion_options({ bosses => ['Hell Biker'], deathstone => 1, kagatsuchi => 4 });
+set_fusion_options({ bosses => ['Hell Biker'], deathstone => 1, kagutsuchi => 4 });
 fusion_is('Shikigami', 'Zhen', 'Hell Biker');
 
-set_fusion_options({ bosses => ['White Rider'], deathstone => 1, kagatsuchi => 0 });
+set_fusion_options({ bosses => ['White Rider'], deathstone => 1, kagutsuchi => 0 });
 fusion_is('Kurama', 'Pazuzu', 'White Rider');
 
-set_fusion_options({ bosses => ['Red Rider'], deathstone => 1, kagatsuchi => 0 });
+set_fusion_options({ bosses => ['Red Rider'], deathstone => 1, kagutsuchi => 0 });
 fusion_is('Badb Catha', 'Succubus', 'Red Rider');
 
-set_fusion_options({ bosses => ['Black Rider'], deathstone => 1, kagatsuchi => 0 });
+set_fusion_options({ bosses => ['Black Rider'], deathstone => 1, kagutsuchi => 0 });
 fusion_is('Beelzebub', 'Koppa', 'Black Rider');
 
-set_fusion_options({ bosses => ['Pale Rider'], deathstone => 1, kagatsuchi => 0 });
+set_fusion_options({ bosses => ['Pale Rider'], deathstone => 1, kagutsuchi => 0 });
 fusion_is('Horus', 'Gurr', 'Pale Rider');
 
-set_fusion_options({ bosses => ['The Harlot'], deathstone => 1, kagatsuchi => 4 });
+set_fusion_options({ bosses => ['The Harlot'], deathstone => 1, kagutsuchi => 4 });
 fusion_is('Shiva', 'Girimehkala', 'The Harlot');
 
-set_fusion_options({ bosses => ['Trumpeter'], deathstone => 1, kagatsuchi => 8 });
+set_fusion_options({ bosses => ['Trumpeter'], deathstone => 1, kagutsuchi => 8 });
 fusion_is('Dionysus', 'Tao Tie', 'Trumpeter');
 
 done_testing;

@@ -14,11 +14,11 @@ sub _fusions_for    { Games::SMTNocturne::Demons::fusions_for(@_) }
 
 my $command = shift @ARGV;
 
-my ($max_level, $deathstones, $kagatsuchi, $bosses);
+my ($max_level, $deathstones, $kagutsuchi, $bosses);
 GetOptions(
     "max_level=i"   => \$max_level,
     "deathstones=i" => \$deathstones,
-    "kagatsuchi=i"  => \$kagatsuchi,
+    "kagutsuchi=i"  => \$kagutsuchi,
     "boss=s@"       => \$bosses,
 ) or die "couldn't parse options";
 $bosses = [ split(/,/, join(',', @$bosses)) ]
@@ -27,7 +27,7 @@ $bosses = [ split(/,/, join(',', @$bosses)) ]
 my $options = {
     max_level  => $max_level,
     deathstone => $deathstones,
-    kagatsuchi => $kagatsuchi,
+    kagutsuchi => $kagutsuchi,
     bosses     => $bosses,
 };
 
@@ -148,7 +148,7 @@ sub _check_fusion {
             %$options,
             sacrifice => $sacrifice,
             deathstone => $deathstones,
-            kagatsuchi => $phase,
+            kagutsuchi => $phase,
         },
     );
     return unless $fused;

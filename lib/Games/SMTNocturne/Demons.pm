@@ -193,8 +193,8 @@ sub fusions_for {
             push @$_, '<deathstone>' for @special_fusions;
         }
 
-        if ($special->{kagatsuchi}) {
-            push @$_, $special->{kagatsuchi} for @special_fusions;
+        if ($special->{kagutsuchi}) {
+            push @$_, $special->{kagutsuchi} for @special_fusions;
         }
     }
 

@@ -102,9 +102,9 @@ sub special_fusion {
             next unless $options->{deathstone};
         }
 
-        if (my $phases = $conditions->{kagatsuchi}) {
-            next unless defined $options->{kagatsuchi}
-                     && grep { $_ == $options->{kagatsuchi} } @$phases;
+        if (my $phases = $conditions->{kagutsuchi}) {
+            next unless defined $options->{kagutsuchi}
+                     && grep { $_ == $options->{kagutsuchi} } @$phases;
         }
 
         if (my $sacrifice = $conditions->{sacrifice}) {
@@ -1552,7 +1552,7 @@ __DATA__
       },
       "Black Rider" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             0
          ],
          "target" : {
@@ -1561,7 +1561,7 @@ __DATA__
       },
       "Daisoujou" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             5,
             6,
             7,
@@ -1597,7 +1597,7 @@ __DATA__
       },
       "Hell Biker" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             4,
             5,
             6,
@@ -1609,7 +1609,7 @@ __DATA__
       },
       "Matador" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             1,
             2,
             3,
@@ -1657,7 +1657,7 @@ __DATA__
       },
       "Pale Rider" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             0
          ],
          "target" : {
@@ -1674,7 +1674,7 @@ __DATA__
       },
       "Red Rider" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             0
          ],
          "target" : {
@@ -1707,7 +1707,7 @@ __DATA__
       },
       "The Harlot" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             4
          ],
          "target" : {
@@ -1716,7 +1716,7 @@ __DATA__
       },
       "Trumpeter" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             8
          ],
          "target" : {
@@ -1725,7 +1725,7 @@ __DATA__
       },
       "White Rider" : {
          "deathstone" : 1,
-         "kagatsuchi" : [
+         "kagutsuchi" : [
             0
          ],
          "target" : {
