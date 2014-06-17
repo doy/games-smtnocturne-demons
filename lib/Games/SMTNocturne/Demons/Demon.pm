@@ -10,6 +10,9 @@ for my $name (keys %DEMONS_BY_NAME) {
     $DEMONS_BY_NAME{$name}{name} = $name;
     $DEMONS_BY_NAME{$name} = bless $DEMONS_BY_NAME{$name}, __PACKAGE__;
 }
+my @DEMONS = sort {
+    $a->level <=> $b->level || $a->name cmp $b->name
+} values %DEMONS_BY_NAME;
 
 my %DEMONS_BY_TYPE;
 for my $name (keys %DEMONS_BY_NAME) {
@@ -31,7 +34,7 @@ sub from_name {
 
 sub all_demons {
     my $class = shift;
-    map { $class->from_name($_) } keys %DEMONS_BY_NAME;
+    return @DEMONS;
 }
 
 sub from_fusion_stats {
