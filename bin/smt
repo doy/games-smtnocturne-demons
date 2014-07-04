@@ -5,7 +5,7 @@ use warnings;
 # ABSTRACT: command line interface to Games::SMTNocturne::Demons
 
 use Getopt::Long;
-use List::Util 'max', 'sum0';
+use List::Util 1.27 'max', 'sum0';
 
 use Games::SMTNocturne::Demons;
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 # ABSTRACT: look up information about demon fusion in Shin Megami Tensei: Nocturne
 
-use Exporter 'import';
+use Exporter 5.58 'import';
 our @EXPORT_OK = qw(demon demons_of_type all_demons fuse fusions_for);
 
 use Games::SMTNocturne::Demons::Demon;
