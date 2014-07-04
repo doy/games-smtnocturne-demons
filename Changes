@@ -1,6 +1,8 @@
 Revision history for Games-SMTNocturne-Demons
 
 {{$NEXT}}
+
+0.02  2014-07-04
       - Specify minimum versions for some dependencies (andk, #1)
 
 0.01  2014-06-17
